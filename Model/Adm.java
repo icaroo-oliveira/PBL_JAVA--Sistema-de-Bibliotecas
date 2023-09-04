@@ -1,4 +1,4 @@
-package pbl_1;
+package Model;
 
 public class Adm extends Operadores{
     public void Reservar_livro(){
@@ -32,6 +32,11 @@ public class Adm extends Operadores{
 
     }
 
+    public Adm() {
+    }
 
-
+    @Override
+    public String toString() {
+        return "Adm{}";
+    }
 }

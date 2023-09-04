@@ -1,4 +1,4 @@
-package pbl_1;
+package Model;
 
 public class Bibliotecario extends Operadores{
 }
