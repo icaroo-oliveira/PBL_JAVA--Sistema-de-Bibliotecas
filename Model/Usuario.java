@@ -2,13 +2,19 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class Usuario extends Pessoa {
     private String status;
-    private ArrayList<Emprestimo> historico_livro;
+    private List<Emprestimo> historico_livro;
+    private int multa;
 
-    private String multa;
+    public Usuario() {
+        this.status = "livre";
+        this.historico_livro = new ArrayList<Emprestimo>();
+        this.multa = 0;
+    }
 
     public String getStatus() {
         return status;
@@ -18,19 +24,19 @@ public class Usuario extends Pessoa {
         this.status = status;
     }
 
-    public ArrayList<Emprestimo> getHistorico_livro() {
+    public List<Emprestimo> getHistorico_livro() {
         return historico_livro;
     }
 
-    public void setHistorico_livro(ArrayList<Emprestimo> historico_livro) {
-        this.historico_livro = historico_livro;
+    public void setHistorico_livro(Emprestimo emprestimo) {
+        this.historico_livro.add(emprestimo);
     }
 
-    public String getMulta() {
+    public int getMulta() {
         return multa;
     }
 
-    public void setMulta(String multa) {
+    public void setMulta(int multa) {
         this.multa = multa;
     }
 }

@@ -1,22 +1,23 @@
 package Model;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Queue;
 
 public class Livro {
     private String titulo;
     private String autor;
-    private String ISBN;
-    private String ano_publicacao;
-
+    private int ISBN;
+    private LocalDate ano_publicacao;
     private String categoria;
-
     private String localizao;
-
-    private String disponibilidade;
+    private boolean disponibilidade;
     private Queue<String> fila_pelo_livro;
-
     private int id;
+
+
+    private Emprestimo emprestimo;
+
 
     public void Reservar_livro(){
 
@@ -37,19 +38,19 @@ public class Livro {
         this.autor = autor;
     }
 
-    public String getISBN() {
+    public int getISBN() {
         return ISBN;
     }
 
-    public void setISBN(String ISBN) {
+    public void setISBN(int ISBN) {
         this.ISBN = ISBN;
     }
 
-    public String getAno_publicacao() {
+    public LocalDate getAno_publicacao() {
         return ano_publicacao;
     }
 
-    public void setAno_publicacao(String ano_publicacao) {
+    public void setAno_publicacao(LocalDate ano_publicacao) {
         this.ano_publicacao = ano_publicacao;
     }
 
@@ -69,11 +70,11 @@ public class Livro {
         this.localizao = localizao;
     }
 
-    public String getDisponibilidade() {
+    public boolean getDisponibilidade() {
         return disponibilidade;
     }
 
-    public void setDisponibilidade(String disponibilidade) {
+    public void setDisponibilidade(boolean disponibilidade) {
         this.disponibilidade = disponibilidade;
     }
 

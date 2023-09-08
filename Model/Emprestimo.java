@@ -1,52 +1,72 @@
 package Model;
 
-import java.util.Date;
+import dao.DAO;
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class Emprestimo {
-    private Date data_emprestimo;
-    private Date data_devolucao;
-
-    private String nome_usuario;
-
+    private LocalDate data_emprestimo;
+    private LocalDate data_devolucao;
+    private LocalDate data_devolucao_esperada;
     private int id_emprestimo;
+    private String status_emprestimo;
+    private Usuario usuario;
+    private Livro livro;
 
-    private int id_usuario;
 
-    private int id;
-    
-    public void Registrar_devolucao(){
+
+    public void Calcula_multa(){
+        int diferenca_devolucao= (int) ChronoUnit.DAYS.between(data_emprestimo, data_devolucao);
+        if(diferenca_devolucao>7){
+            usuario.setMulta((diferenca_devolucao-7)*2);
+        }else{
+            usuario.setMulta(0);
+        }
+    }
+
+    public Emprestimo Realizar_empresitmo(){
+        if(getLivro().getDisponibilidade()){
+            getLivro().setDisponibilidade(false);
+            getUsuario().setHistorico_livro(this);
+            return DAO.getEmprestimoDAO().create(this);//??
+        }
+        else{
+            System.out.println("Não foi possível realizar o empréstimo");
+            return null;
+
+
+        }
+
+
+
 
     }
 
-    public void Renovar_emprestimo(){
 
-    }
-    public void Tamanho_fila(){
 
-    }
 
-    public Date getData_emprestimo() {
+
+    public LocalDate getData_emprestimo() {
         return data_emprestimo;
     }
-
-    public void setData_emprestimo(Date data_emprestimo) {
-        this.data_emprestimo = data_emprestimo;
+    public void setData_emprestimo(int dia,int mes,int ano) {
+        this.data_emprestimo = LocalDate.of(ano,mes,dia);
     }
-
-    public Date getData_devolucao() {
+    public LocalDate getData_devolucao() {
         return data_devolucao;
     }
 
-    public void setData_devolucao(Date data_devolucao) {
-        this.data_devolucao = data_devolucao;
+    public void setData_devolucao(int dia,int mes,int ano) {
+        this.data_devolucao = LocalDate.of(ano,mes,dia);
     }
 
-    public String getNome_usuario() {
-        return nome_usuario;
+    public LocalDate getData_devolucao_esperada() {
+        return data_devolucao_esperada;
     }
 
-    public void setNome_usuario(String nome_usuario) {
-        this.nome_usuario = nome_usuario;
+    public void setData_devolucao_esperada(LocalDate data_emprestimo) {
+        this.data_devolucao_esperada = data_emprestimo.plusDays(7);
     }
 
     public int getId_emprestimo() {
@@ -56,4 +76,30 @@ public class Emprestimo {
     public void setId_emprestimo(int id_emprestimo) {
         this.id_emprestimo = id_emprestimo;
     }
+
+    public String getStatus_emprestimo() {
+        return status_emprestimo;
+    }
+
+    public void setStatus_emprestimo(String status_emprestimo) {
+        this.status_emprestimo = status_emprestimo;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Livro getLivro() {
+        return livro;
+    }
+
+    public void setLivro(Livro livro) {
+        this.livro = livro;
+    }
+
+
 }
