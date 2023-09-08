@@ -10,48 +10,71 @@ public class Emprestimo {
     private LocalDate data_devolucao;
     private LocalDate data_devolucao_esperada;
     private int id_emprestimo;
-    private String status_emprestimo;
+    private int status_emprestimo;//0 = tudo de boa, 1=atrasado
     private Usuario usuario;
     private Livro livro;
 
+    private int qnt_renovacao;
 
 
-    public void Calcula_multa(){
-        int diferenca_devolucao= (int) ChronoUnit.DAYS.between(data_emprestimo, data_devolucao);
-        if(diferenca_devolucao>7){
-            usuario.setMulta((diferenca_devolucao-7)*2);
-        }else{
-            usuario.setMulta(0);
-        }
+    public Emprestimo(Usuario usuario, Livro livro) {
+        this.data_emprestimo = LocalDate.now();
+        this.data_devolucao = null;
+        setData_devolucao_esperada(data_emprestimo);
+        this.status_emprestimo =0;
+        this.usuario = usuario;
+        this.livro = livro;
+        this.qnt_renovacao=1;
+
+        Realizar_empresitmo();
     }
 
+    public void Calcula_multa(LocalDate devolvendo){
+        int diferenca_devolucao= (int) ChronoUnit.DAYS.between(getData_emprestimo(), devolvendo);
+        if(diferenca_devolucao>7){
+            getUsuario().setMulta((diferenca_devolucao-7)*2);
+            getUsuario().setData_multa(devolvendo);
+            getUsuario().setStatus(false);
+        }else{
+            getUsuario().setMulta(0);
+        }
+    }
     public Emprestimo Realizar_empresitmo(){
-        if(getLivro().getDisponibilidade()){
+        //&& getUsuario().getStatus()
+        if(getLivro().getDisponibilidade() && getUsuario().Status1()){
             getLivro().setDisponibilidade(false);
             getUsuario().setHistorico_livro(this);
-            return DAO.getEmprestimoDAO().create(this);//??
+            getUsuario().setQntd_emprestimo();
+            return DAO.getEmprestimoDAO().create(this);//dao em todos, usuario e livro tb..voltar aqui dps
         }
         else{
             System.out.println("Não foi possível realizar o empréstimo");
             return null;
-
-
         }
-
-
-
-
+    }
+    public void Devolucao(){
+        Calcula_multa(LocalDate.now());
+        getLivro().setDisponibilidade(true);
     }
 
-
-
+    public void Renovar_emprestimo(){
+        if (getLivro().getFila().isEmpty() && getQnt_emprestimo()<=2 && getUsuario().getStatus()){
+            setData_emprestimo();
+            setQnt_emprestimo();
+        }else if(!getLivro().getFila().isEmpty() && getUsuario().getStatus()){
+            getLivro().Reservar_livro(getUsuario());
+        }else{
+            System.out.println("bora melhorar meu velho, ta com umas multas ae...");
+        }
+    }
 
 
     public LocalDate getData_emprestimo() {
         return data_emprestimo;
     }
-    public void setData_emprestimo(int dia,int mes,int ano) {
-        this.data_emprestimo = LocalDate.of(ano,mes,dia);
+    public void setData_emprestimo() {
+        this.data_emprestimo = LocalDate.now();
+        setData_devolucao_esperada(LocalDate.now());
     }
     public LocalDate getData_devolucao() {
         return data_devolucao;
@@ -77,11 +100,11 @@ public class Emprestimo {
         this.id_emprestimo = id_emprestimo;
     }
 
-    public String getStatus_emprestimo() {
+    public int getStatus_emprestimo() { //ok??
         return status_emprestimo;
     }
 
-    public void setStatus_emprestimo(String status_emprestimo) {
+    public void setStatus_emprestimo(int status_emprestimo) {
         this.status_emprestimo = status_emprestimo;
     }
 
@@ -101,5 +124,11 @@ public class Emprestimo {
         this.livro = livro;
     }
 
+    public int getQnt_emprestimo() {
+        return qnt_renovacao;
+    }
 
+    public void setQnt_emprestimo() {
+        this.qnt_renovacao++;
+    }
 }

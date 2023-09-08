@@ -1,26 +1,49 @@
 package Model;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 
 public class Usuario extends Pessoa {
-    private String status;
+    private boolean status;
     private List<Emprestimo> historico_livro;
     private int multa;
 
+    private LocalDate data_multa;
+
+    private int qntd_emprestimo;
+
     public Usuario() {
-        this.status = "livre";
+        this.status = true;
         this.historico_livro = new ArrayList<Emprestimo>();
         this.multa = 0;
+        this.qntd_emprestimo=0;
+        this.data_multa=null;
     }
 
-    public String getStatus() {
+
+    public boolean Status1(){
+        if(getQntd_emprestimo()==3){
+            setStatus(false);
+        } else if(getData_multa()!=null){
+            if((int) ChronoUnit.DAYS.between(getData_multa(),LocalDate.now())>getMulta()){
+                setStatus(true);
+
+            }
+
+        }
+
+        return getStatus();
+    }
+
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
@@ -28,8 +51,10 @@ public class Usuario extends Pessoa {
         return historico_livro;
     }
 
-    public void setHistorico_livro(Emprestimo emprestimo) {
-        this.historico_livro.add(emprestimo);
+    public void setHistorico_livro(Emprestimo emprestimo) {//se ligar nisso
+        this.historico_livro.add(emprestimo); //antes
+        //depois \/
+        //getHistorico_livro().add(emprestimo);
     }
 
     public int getMulta() {
@@ -39,4 +64,21 @@ public class Usuario extends Pessoa {
     public void setMulta(int multa) {
         this.multa = multa;
     }
+
+    public LocalDate getData_multa() {
+        return data_multa;
+    }
+
+    public void setData_multa(LocalDate data_multa) {
+        this.data_multa = data_multa;
+    }
+
+    public int getQntd_emprestimo() {
+        return qntd_emprestimo;
+    }
+
+    public void setQntd_emprestimo() {
+        this.qntd_emprestimo++;
+    }
 }
+

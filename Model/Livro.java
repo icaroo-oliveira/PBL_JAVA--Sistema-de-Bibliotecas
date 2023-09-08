@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.Queue;
 
+
 public class Livro {
     private String titulo;
     private String autor;
@@ -12,16 +13,26 @@ public class Livro {
     private String categoria;
     private String localizao;
     private boolean disponibilidade;
-    private Queue<String> fila_pelo_livro;
+    private Queue<Usuario> fila_pelo_livro;
     private int id;
 
 
     private Emprestimo emprestimo;
 
 
-    public void Reservar_livro(){
-
+    public void Reservar_livro(Usuario usuario){
+        if(!getDisponibilidade() || !getFila().isEmpty()){  //olhar aqui...
+            getFila().add(usuario);
+        }/*else{
+            System.out.println("livro ta disponível, faça um emprestimo enquanto ha tempo, kkkkk");
+        }*/
+        /*else{
+            System.out.println("Não tem ninguém querendo reservar esse livro...");
+            Emprestimo emprestimo= new Emprestimo(usuario,this);//<<sei nao, se isso fica aqui...<SE LGIAR
+            System.out.println("Emprestimo realizado!!");
+        }*/
     }
+
     public String getTitulo() {
         return titulo;
     }
@@ -78,11 +89,8 @@ public class Livro {
         this.disponibilidade = disponibilidade;
     }
 
-    public Queue<String> getFila() {
+    public Queue<Usuario> getFila() {
         return fila_pelo_livro;
     }
 
-    public void setFila(Queue<String> fila) {
-        this.fila_pelo_livro = fila;
-    }
 }
