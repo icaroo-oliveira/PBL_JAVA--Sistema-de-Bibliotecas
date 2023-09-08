@@ -10,7 +10,7 @@ public interface CRUD<T> {
 
     public void deleteMany();
 
-    public T update(T obj);
+    public T update(T obj,T obj1);
 
     public List<T> findMany();
 

@@ -1,23 +1,36 @@
 package Model;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Queue;
+
 
 public class Usuario extends Pessoa {
     private String status;
-    private Queue<Emprestimo> historico_livro;
+    private ArrayList<Emprestimo> historico_livro;
 
-    private Date multa;
+    private String multa;
 
-    public void Pesquisar_livro(){
-
+    public String getStatus() {
+        return status;
     }
 
-    public void Reservar_livro(){
-
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public void Renovar_emprestimo(){
-        
+    public ArrayList<Emprestimo> getHistorico_livro() {
+        return historico_livro;
+    }
+
+    public void setHistorico_livro(ArrayList<Emprestimo> historico_livro) {
+        this.historico_livro = historico_livro;
+    }
+
+    public String getMulta() {
+        return multa;
+    }
+
+    public void setMulta(String multa) {
+        this.multa = multa;
     }
 }

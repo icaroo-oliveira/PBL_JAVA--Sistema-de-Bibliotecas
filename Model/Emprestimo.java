@@ -8,17 +8,13 @@ public class Emprestimo {
 
     private String nome_usuario;
 
-    private String id_emprestimo;
+    private int id_emprestimo;
 
-    public void Realizar_emprestimo(){
+    private int id_usuario;
 
-    }
-
+    private int id;
+    
     public void Registrar_devolucao(){
-
-    }
-
-    public void Reservar_livro(){
 
     }
 
@@ -53,11 +49,11 @@ public class Emprestimo {
         this.nome_usuario = nome_usuario;
     }
 
-    public String getId_emprestimo() {
+    public int getId_emprestimo() {
         return id_emprestimo;
     }
 
-    public void setId_emprestimo(String id_emprestimo) {
+    public void setId_emprestimo(int id_emprestimo) {
         this.id_emprestimo = id_emprestimo;
     }
 }

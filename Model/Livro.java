@@ -7,15 +7,20 @@ public class Livro {
     private String titulo;
     private String autor;
     private String ISBN;
-    private Date ano_publicacao;
+    private String ano_publicacao;
 
     private String categoria;
 
     private String localizao;
 
     private String disponibilidade;
-    private Queue<String> fila;
+    private Queue<String> fila_pelo_livro;
 
+    private int id;
+
+    public void Reservar_livro(){
+
+    }
     public String getTitulo() {
         return titulo;
     }
@@ -40,11 +45,11 @@ public class Livro {
         this.ISBN = ISBN;
     }
 
-    public Date getAno_publicacao() {
+    public String getAno_publicacao() {
         return ano_publicacao;
     }
 
-    public void setAno_publicacao(Date ano_publicacao) {
+    public void setAno_publicacao(String ano_publicacao) {
         this.ano_publicacao = ano_publicacao;
     }
 
@@ -73,10 +78,10 @@ public class Livro {
     }
 
     public Queue<String> getFila() {
-        return fila;
+        return fila_pelo_livro;
     }
 
     public void setFila(Queue<String> fila) {
-        this.fila = fila;
+        this.fila_pelo_livro = fila;
     }
 }
