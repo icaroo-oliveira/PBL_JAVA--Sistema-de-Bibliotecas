@@ -45,11 +45,20 @@ public class Emprestimo {
             getLivro().setDisponibilidade(false);
             getUsuario().setHistorico_livro(this);
             getUsuario().setQntd_emprestimo();
-            //return DAO.getEmprestimoDAO().create(this);//dao em todos, usuario e livro tb..voltar aqui dps
+
         }
         else{
             System.out.println("Não foi possível realizar o empréstimo");
-            //return null;
+
+            if (!getLivro().getDisponibilidade() && getUsuario().Status1()){
+                getLivro().Reservar_livro(usuario);
+            }
+            else if(getLivro().getDisponibilidade() && getUsuario().Status1()){
+                System.out.println("bora melhorar ia primo...");
+            }
+            
+            System.out.println("Não foi possível realizar o empréstimo");
+
         }
     }
     public void Devolucao(){
