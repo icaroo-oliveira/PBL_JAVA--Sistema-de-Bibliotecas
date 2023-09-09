@@ -25,18 +25,22 @@ public class Usuario extends Pessoa {
     }
 
 
+
     public boolean Status1(){
         if(getQntd_emprestimo()==3){
             setStatus(false);
         } else if(getData_multa()!=null){
             if((int) ChronoUnit.DAYS.between(getData_multa(),LocalDate.now())>getMulta()){
                 setStatus(true);
-
+            }else{
+                setStatus(false);
             }
-
         }
-
         return getStatus();
+    }
+
+    public void Bloqueando(){
+        setStatus(false);
     }
 
     public boolean getStatus() {

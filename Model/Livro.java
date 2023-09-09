@@ -16,23 +16,24 @@ public class Livro {
     private Queue<Usuario> fila_pelo_livro;
     private int id;
 
+    //creio que nao tenha necessidade ed um campo para usuario atual, por conta do emprestimo, mas... nunca se sabe, ok.
 
-    private Emprestimo emprestimo;
 
 
     public void Reservar_livro(Usuario usuario){
-        if(!getDisponibilidade() || !getFila().isEmpty()){  //olhar aqui...
+        if(!getDisponibilidade() || !getFila().isEmpty() && usuario.Status1()){
             getFila().add(usuario);
-        }/*else{
-            System.out.println("livro ta disponível, faça um emprestimo enquanto ha tempo, kkkkk");
-        }*/
-        /*else{
-            System.out.println("Não tem ninguém querendo reservar esse livro...");
-            Emprestimo emprestimo= new Emprestimo(usuario,this);//<<sei nao, se isso fica aqui...<SE LGIAR
-            System.out.println("Emprestimo realizado!!");
-        }*/
+        }
     }
 
+    public void Fazer_emprestimo(Usuario usuario){
+        Emprestimo emprestimo = new Emprestimo(usuario,this);
+    }
+
+
+
+
+    //talvez aqui teria que ter um new emprestimo, quase certeza kkkkk
     public String getTitulo() {
         return titulo;
     }

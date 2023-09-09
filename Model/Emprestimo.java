@@ -39,17 +39,17 @@ public class Emprestimo {
             getUsuario().setMulta(0);
         }
     }
-    public Emprestimo Realizar_empresitmo(){
+    public void Realizar_empresitmo(){
         //&& getUsuario().getStatus()
         if(getLivro().getDisponibilidade() && getUsuario().Status1()){
             getLivro().setDisponibilidade(false);
             getUsuario().setHistorico_livro(this);
             getUsuario().setQntd_emprestimo();
-            return DAO.getEmprestimoDAO().create(this);//dao em todos, usuario e livro tb..voltar aqui dps
+            //return DAO.getEmprestimoDAO().create(this);//dao em todos, usuario e livro tb..voltar aqui dps
         }
         else{
             System.out.println("Não foi possível realizar o empréstimo");
-            return null;
+            //return null;
         }
     }
     public void Devolucao(){
