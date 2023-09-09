@@ -56,7 +56,7 @@ public class Emprestimo {
             else if(getLivro().getDisponibilidade() && getUsuario().Status1()){
                 System.out.println("bora melhorar ia primo...");
             }
-            
+
             System.out.println("Não foi possível realizar o empréstimo");
 
         }

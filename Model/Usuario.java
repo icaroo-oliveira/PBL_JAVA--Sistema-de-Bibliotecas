@@ -16,13 +16,16 @@ public class Usuario extends Pessoa {
 
     private int qntd_emprestimo;
 
-    public Usuario() {
+    public Usuario(String nome) {
+        super(nome);
         this.status = true;
         this.historico_livro = new ArrayList<Emprestimo>();
         this.multa = 0;
         this.qntd_emprestimo=0;
         this.data_multa=null;
+
     }
+
 
 
 

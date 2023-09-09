@@ -6,6 +6,10 @@ public class Pessoa {
     private String num_identifica;
     private String telefone;
 
+    public Pessoa(String nome) {
+        this.nome = nome;
+    }
+
     private int id;
     public String getNome() {
         return nome;

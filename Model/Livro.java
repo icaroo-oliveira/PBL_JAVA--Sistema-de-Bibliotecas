@@ -19,19 +19,23 @@ public class Livro {
     //creio que nao tenha necessidade ed um campo para usuario atual, por conta do emprestimo, mas... nunca se sabe, ok.
 
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public void Reservar_livro(Usuario usuario){
         if(!getDisponibilidade() || !getFila().isEmpty() && usuario.Status1()){
-            getFila().add(usuario);
+            this.fila_pelo_livro.add(usuario);//se ligar nisso...
         }
     }
 
     public void Fazer_emprestimo(Usuario usuario){
         Emprestimo emprestimo = new Emprestimo(usuario,this);
     }
-
-
-
 
     //talvez aqui teria que ter um new emprestimo, quase certeza kkkkk
     public String getTitulo() {
