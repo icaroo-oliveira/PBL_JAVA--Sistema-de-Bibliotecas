@@ -19,11 +19,14 @@ class UsuarioTest {
         DAO.getUsuarioDAO().create(new Usuario("Felipe souza marcelino"));
 
 
-
+        //ctrl+shift+/
+        //ctrl+shift+alt+j
         Assertions.assertEquals(DAO.getUsuarioDAO().findById(0).getNome(),"JOAO");
         Assertions.assertEquals(DAO.getUsuarioDAO().findById(1).getNome(),"Marcelino");
         Assertions.assertEquals(DAO.getUsuarioDAO().findById(2).getNome(),"Junior bandidão");
         Assertions.assertEquals(DAO.getUsuarioDAO().findById(3).getNome(),"Felipe souza marcelino");
+
+
 
 
 

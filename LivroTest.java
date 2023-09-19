@@ -20,8 +20,8 @@ class LivroTest {
         DAO.getUsuarioDAO().create(new Usuario("Fabio"));
         DAO.getUsuarioDAO().create(new Usuario("Gabriel"));
 
-        DAO.getLivroDAO().create(new Livro("Fome","Knut Hansum",123));
-        DAO.getLivroDAO().create(new Livro("DEMIAN","Hermam Hesse",124));
+        DAO.getLivroDAO().create(new Livro("Fome","Knut Hamsun",123));
+        DAO.getLivroDAO().create(new Livro("DEMIAN","Herman Hesse",124));
         DAO.getLivroDAO().create(new Livro("Os três porquinhos","desconhecido",1));
         DAO.getLivroDAO().create(new Livro("Iliada","Homero",6));
 
@@ -34,13 +34,27 @@ class LivroTest {
 
 
 
-        List<Emprestimo> lista = DAO.getEmprestimoDAO().findMany();
+
+
+
+        for(Livro livro:Sistema.getPesquisa().pesquisarPorAutor("Homero")){
+            System.out.println(livro.getTitulo());
+
+        }
+        /*List<Emprestimo> lista = DAO.getEmprestimoDAO().findMany();
 
         System.out.println(DAO.getEmprestimoDAO().findById(0).getQnt_emprestimo());
 
         DAO.getEmprestimoDAO().findById(0).Renovar_emprestimo();
 
         System.out.println(DAO.getEmprestimoDAO().findById(0).getQnt_emprestimo());
+
+        DAO.getLivroDAO().findById(2).Fazer_emprestimo(DAO.getUsuarioDAO().findById(1));
+
+        DAO.getEmprestimoDAO().findById(0).Renovar_emprestimo();
+
+        System.out.println(DAO.getEmprestimoDAO().findById(0).getQnt_emprestimo());*/
+
 
         /*
 

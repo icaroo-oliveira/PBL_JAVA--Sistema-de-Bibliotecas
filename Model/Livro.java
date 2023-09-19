@@ -21,6 +21,9 @@ public class Livro {
     private Queue<Usuario> fila_pelo_livro = new LinkedList<>();
     private int id;
 
+    private int popularity;
+    private Emprestimo emprestimo;
+
     //creio que nao tenha necessidade ed um campo para usuario atual, por conta do emprestimo, mas... nunca se sabe, ok.
 
 
@@ -29,6 +32,7 @@ public class Livro {
         this.autor = autor;
         this.ISBN = ISBN;
         this.disponibilidade=true;
+        this.popularity=0;
     }
 
     public int getId() {
@@ -47,10 +51,28 @@ public class Livro {
 
     }
 
-    public void Fazer_emprestimo(Usuario usuario){
-        Emprestimo emprestimo = new Emprestimo(usuario,this);
+    public Emprestimo getEmprestimo() {
+        return emprestimo;
     }
 
+    public void setEmprestimo(Emprestimo emprestimo) {
+        this.emprestimo = emprestimo;
+    }
+
+    public void Fazer_emprestimo(Usuario usuario){
+        this.emprestimo = new Emprestimo(usuario,this);//MODIFIQUEI ISSO, ANTES ERA :
+        this.popularity++;
+        //Emprestimo emprestimo = new Emprestimo(usuario,this);
+
+    }
+
+    public int getPopularity() {
+        return popularity;
+    }
+
+    public void setPopularity(int popularity) {
+        this.popularity = popularity;
+    }
 
     public String getTitulo() {
         return titulo;
