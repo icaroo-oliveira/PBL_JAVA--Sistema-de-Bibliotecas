@@ -1,7 +1,12 @@
 package Model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Queue;
+
+import java.util.LinkedList;
 import java.util.Queue;
 
 
@@ -13,11 +18,18 @@ public class Livro {
     private String categoria;
     private String localizao;
     private boolean disponibilidade;
-    private Queue<Usuario> fila_pelo_livro;
+    private Queue<Usuario> fila_pelo_livro = new LinkedList<>();
     private int id;
 
     //creio que nao tenha necessidade ed um campo para usuario atual, por conta do emprestimo, mas... nunca se sabe, ok.
 
+
+    public Livro(String titulo, String autor, int ISBN) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.ISBN = ISBN;
+        this.disponibilidade=true;
+    }
 
     public int getId() {
         return id;
@@ -27,17 +39,19 @@ public class Livro {
         this.id = id;
     }
 
-    public void Reservar_livro(Usuario usuario){
-        if(!getDisponibilidade() || !getFila().isEmpty() && usuario.Status1()){
+    public void Reservar_livro(Usuario usuario){//se lgiar nessa logica aqui dps tbm
+
+        if(!getDisponibilidade() && usuario.Status1()){//getFila().isEmpty()
             this.fila_pelo_livro.add(usuario);//se ligar nisso...
         }
+
     }
 
     public void Fazer_emprestimo(Usuario usuario){
         Emprestimo emprestimo = new Emprestimo(usuario,this);
     }
 
-    //talvez aqui teria que ter um new emprestimo, quase certeza kkkkk
+
     public String getTitulo() {
         return titulo;
     }
@@ -94,7 +108,7 @@ public class Livro {
         this.disponibilidade = disponibilidade;
     }
 
-    public Queue<Usuario> getFila() {
+    public Queue<Usuario> getFila() {//aqui tbm e queue
         return fila_pelo_livro;
     }
 
