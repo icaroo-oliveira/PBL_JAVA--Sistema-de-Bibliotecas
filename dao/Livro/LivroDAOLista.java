@@ -1,7 +1,7 @@
 package dao.Livro;
 
-import Model.Emprestimo;
 import Model.Livro;
+import excepctions.LivroException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +29,11 @@ public class LivroDAOLista implements LivroDAO{
     }
 
     @Override
-    public void delete(Livro obj) {
-        this.lista.remove(obj);
+    public void delete(Livro obj) throws LivroException {
+        boolean remover = this.lista.remove(obj);
+        if(!remover){
+            throw new LivroException(LivroException.DELETE,obj);
+        }
 
     }
     @Override
@@ -40,10 +43,14 @@ public class LivroDAOLista implements LivroDAO{
     }
 
     @Override
-    public Livro update(Livro obj, Livro obj1) {
+    public Livro update(Livro obj, Livro obj1) throws LivroException {
         int index = this.lista.indexOf(obj);
-        this.lista.set(index,obj1);
-        return obj1;
+        if(index ==-1) {
+            throw new LivroException(LivroException.UPDATE, obj);
+        }else{
+            this.lista.set(index,obj1);
+            return obj1;
+        }
     }
 
     @Override
@@ -52,13 +59,15 @@ public class LivroDAOLista implements LivroDAO{
     }
 
     @Override
-    public Livro findById(int id) {
+    public Livro findById(int id) throws LivroException {
 
         for(Livro livro:this.lista){
             if(livro.getId()==id){
                 return livro;
             }
         }
-        return null;
+        throw new LivroException(LivroException.FIND,id);
+
+
     }
 }

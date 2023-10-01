@@ -1,8 +1,8 @@
 package dao.Usuario;
 
 
-import Model.Livro;
 import Model.Usuario;
+import excepctions.UsuarioException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +30,11 @@ public class UsuarioDAOLista implements UsuarioDAO {
     }
 
     @Override
-    public void delete(Usuario obj) {
-        this.lista.remove(obj);
+    public void delete(Usuario obj) throws UsuarioException {
+        boolean remover = this.lista.remove(obj);
+        if(!remover){
+            throw new UsuarioException(UsuarioException.DELETE,obj);
+        }
     }
 
     @Override
@@ -41,10 +44,14 @@ public class UsuarioDAOLista implements UsuarioDAO {
     }
 
     @Override
-    public Usuario update(Usuario obj, Usuario obj1) {
+    public Usuario update(Usuario obj, Usuario obj1) throws UsuarioException{
         int index = this.lista.indexOf(obj);
-        this.lista.set(index,obj1);
-        return obj1;
+        if(index ==-1) {
+            throw new UsuarioException(UsuarioException.UPDATE, obj);
+        }else{
+            this.lista.set(index,obj1);
+            return obj1;
+        }
     }
 
     @Override
@@ -53,12 +60,13 @@ public class UsuarioDAOLista implements UsuarioDAO {
     }
 
     @Override
-    public Usuario findById(int id) {
+    public Usuario findById(int id) throws UsuarioException {
         for(Usuario usuario:this.lista){
             if(usuario.getId()==id){
                 return usuario;
             }
         }
-        return null;
+        throw new UsuarioException(UsuarioException.FIND,id);
+
     }
 }

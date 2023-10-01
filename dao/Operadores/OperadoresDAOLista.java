@@ -1,7 +1,7 @@
 package dao.Operadores;
 
-import Model.Livro;
 import Model.Operadores;
+import excepctions.OperadoresException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +30,11 @@ public class OperadoresDAOLista implements OperadoresDAO{
     }
 
     @Override
-    public void delete(Operadores obj) {
-        this.lista.remove(obj);
+    public void delete(Operadores obj) throws OperadoresException {
+        boolean remover = this.lista.remove(obj);
+        if(!remover){
+            throw new OperadoresException(OperadoresException.DELETE,obj);
+        }
 
     }
 
@@ -42,10 +45,15 @@ public class OperadoresDAOLista implements OperadoresDAO{
     }
 
     @Override
-    public Operadores update(Operadores obj, Operadores obj1) {
+    public Operadores update(Operadores obj, Operadores obj1) throws OperadoresException {
         int index = this.lista.indexOf(obj);
-        this.lista.set(index,obj1);
-        return obj1;
+        if(index ==-1) {
+            throw new OperadoresException(OperadoresException.UPDATE, obj);
+        }else{
+            this.lista.set(index,obj1);
+            return obj1;
+        }
+
     }
 
     @Override
@@ -54,12 +62,13 @@ public class OperadoresDAOLista implements OperadoresDAO{
     }
 
     @Override
-    public Operadores findById(int id) {
+    public Operadores findById(int id) throws OperadoresException{
         for(Operadores operador:this.lista){
             if(operador.getId()==id){
                 return operador;
             }
         }
-        return null;
+        throw new OperadoresException(OperadoresException.FIND,id);
+
     }
 }

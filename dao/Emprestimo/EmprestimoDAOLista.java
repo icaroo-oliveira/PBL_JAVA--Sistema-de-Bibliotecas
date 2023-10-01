@@ -1,7 +1,7 @@
 package dao.Emprestimo;
 
-import dao.DAO;
 import Model.Emprestimo;
+import excepctions.EmprestimoException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +29,12 @@ public class EmprestimoDAOLista implements EmprestimoDAO{
     }
 
     @Override
-    public void delete(Emprestimo obj) {
-        this.lista.remove(obj);
+    public void delete(Emprestimo obj) throws EmprestimoException {
+
+        boolean remover = this.lista.remove(obj);
+        if(!remover){
+            throw new EmprestimoException(EmprestimoException.DELETE,obj);
+        }
 
     }
 
@@ -42,11 +46,21 @@ public class EmprestimoDAOLista implements EmprestimoDAO{
     }
 
     @Override
-    public Emprestimo update(Emprestimo obj,Emprestimo obj1) {
+    public Emprestimo update(Emprestimo obj,Emprestimo obj1) throws EmprestimoException {
+
+
         int index = this.lista.indexOf(obj);
-        this.lista.set(index,obj1);
-        return obj1;
+        if (index == -1) {
+            throw new EmprestimoException(EmprestimoException.UPDATE, obj);
+        } else {
+            this.lista.set(index, obj1);
+            return obj1;
+        }
+
     }
+
+
+
 
     @Override
     public List<Emprestimo> findMany() {
@@ -54,13 +68,14 @@ public class EmprestimoDAOLista implements EmprestimoDAO{
     }
 
     @Override
-    public Emprestimo findById(int id) {
+    public Emprestimo findById(int id) throws EmprestimoException {
+
         for(Emprestimo emprestimo:this.lista){
             if(emprestimo.getId_emprestimo()==id){
                 return emprestimo;
             }
         }
-        return null;
+        throw new EmprestimoException(EmprestimoException.FIND,id);
     }
 }
 
