@@ -64,7 +64,7 @@ public class Relatorios_estatiscas {
     }
 
 
-    public List<Emprestimo> getUsuarioEmprestimos(int id){
+    public List<Emprestimo> getUsuarioEmprestimos(int id) throws Exception {
 
         if(!DAO.getUsuarioDAO().findById(id).getHistorico_livro().isEmpty()){
             return DAO.getUsuarioDAO().findById(id).getHistorico_livro();
