@@ -6,15 +6,16 @@ import org.biblioteca.dao.Livro.LivroDAO;
 import org.biblioteca.dao.Livro.LivroDAOLista;
 import org.biblioteca.dao.Operadores.OperadoresDAO;
 import org.biblioteca.dao.Operadores.OperadoresDAOLista;
+
 import org.biblioteca.dao.Usuario.UsuarioDAO;
 import org.biblioteca.dao.Usuario.UsuarioDAOLista;
 
 public class DAO {
 
-    private static org.biblioteca.dao.Emprestimo.EmprestimoDAO EmprestimoDAO;
-    private static org.biblioteca.dao.Livro.LivroDAO LivroDAO;
-    private static org.biblioteca.dao.Operadores.OperadoresDAO OperadoresDAO;
-    private static org.biblioteca.dao.Usuario.UsuarioDAO UsuarioDAO;
+    private static EmprestimoDAO EmprestimoDAO;
+    private static LivroDAO LivroDAO;
+    private static OperadoresDAO OperadoresDAO;
+    private static UsuarioDAO UsuarioDAO;
 
     public static EmprestimoDAO getEmprestimoDAO() {
         if (EmprestimoDAO == null) {

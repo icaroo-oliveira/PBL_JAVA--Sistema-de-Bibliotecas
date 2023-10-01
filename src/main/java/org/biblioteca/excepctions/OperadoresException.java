@@ -1,6 +1,5 @@
 package org.biblioteca.excepctions;
 
-
 import org.biblioteca.Model.Operadores;
 
 public class OperadoresException extends Exception{

@@ -1,8 +1,10 @@
 package org.biblioteca.Model;
 
 import org.biblioteca.dao.DAO;
-import org.biblioteca.excepctions.EmprestimoException;
-import org.biblioteca.excepctions.LivroException;
+
+import org.biblioteca.excepctions.*;
+
+
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;

@@ -1,10 +1,12 @@
 package org.biblioteca.Model;
 
-import org.biblioteca.excepctions.EmprestimoException;
-import org.biblioteca.excepctions.LivroException;
+import org.biblioteca.excepctions.*;
 
 import java.time.LocalDate;
 import java.util.Queue;
+
+import org.biblioteca.Model.Usuario;
+
 
 import java.util.LinkedList;
 
