@@ -89,7 +89,7 @@ public class PesquisaLivro {
             livros.sort(new Comparator<Livro>() {
                 @Override
                 public int compare(Livro l1, Livro l2) {
-                    return Integer.compare(l1.getPopularity(), l2.getPopularity());
+                    return Integer.compare(l2.getPopularity(), l1.getPopularity());
                 }
             });
             return livros;
