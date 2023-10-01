@@ -1,13 +1,12 @@
 package Model;
 
+import excepctions.EmprestimoException;
+import excepctions.LivroException;
+
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.Queue;
 
 import java.util.LinkedList;
-import java.util.Queue;
 
 
 public class Livro {
@@ -43,11 +42,27 @@ public class Livro {
         this.id = id;
     }
 
-    public void Reservar_livro(Usuario usuario){//se lgiar nessa logica aqui dps tbm
+    public void Reservar_livro(Usuario usuario,LocalDate empr) throws LivroException {//se lgiar nessa logica aqui dps tbm
 
-        if(!getDisponibilidade() && usuario.Status1()){//getFila().isEmpty()
+        if(!getDisponibilidade() && usuario.Status1(empr)){//getFila().isEmpty()
             this.fila_pelo_livro.add(usuario);//se ligar nisso...
+        }else{
+
+            throw new LivroException(LivroException.RESERVA,this);
+            //lançar outra exceção "nao foi possível reservar o livro..."<<<<<<<<,AMARELO>>>>>>>>>>>>.
         }
+
+    }
+
+
+    public void Fazer_emprestimo(Usuario usuario,LocalDate emp_data,LocalDate emp_data_dev) throws EmprestimoException, LivroException {
+        this.emprestimo = new Emprestimo(usuario,this,emp_data,emp_data_dev);//MODIFIQUEI ISSO, ANTES ERA :this.emprestimo = new Emprestimo(usuario,this)
+        this.popularity++;
+        //Emprestimo emprestimo = new Emprestimo(usuario,this);
+
+    }
+
+    public void Editando_livro(){//fazer isso dps<<<
 
     }
 
@@ -59,12 +74,7 @@ public class Livro {
         this.emprestimo = emprestimo;
     }
 
-    public void Fazer_emprestimo(Usuario usuario){
-        this.emprestimo = new Emprestimo(usuario,this);//MODIFIQUEI ISSO, ANTES ERA :
-        this.popularity++;
-        //Emprestimo emprestimo = new Emprestimo(usuario,this);
 
-    }
 
     public int getPopularity() {
         return popularity;
