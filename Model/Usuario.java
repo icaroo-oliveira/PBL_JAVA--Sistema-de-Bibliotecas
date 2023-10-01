@@ -3,7 +3,6 @@ package Model;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -29,12 +28,43 @@ public class Usuario extends Pessoa {
 
 
 
-    public boolean Status1(){
-        if(getQntd_emprestimo()==3){
+    public boolean Status1(LocalDate empres){
+        int n = getHistorico_livro().size();
+        int cont=0;
+
+        if(!getHistorico_livro().isEmpty()){
+
+            //  \/ (???????????????????)
+            //Emprestimo ultimo = getHistorico_livro().get(n-1);
+            //Emprestimo penultimo = getHistorico_livro().get(n-2);
+            //Emprestimo antepenultimo = getHistorico_livro().get(n-3);
+
+
+            for (int i = 1; i < 4; i++) {
+                try {
+                    cont+=getHistorico_livro().get(n-i).verificando_data_emprestimo(empres);
+                } catch (IndexOutOfBoundsException e) {
+                    break;
+                }
+            }
+        }
+        System.out.println(cont);
+
+        /*if(cont==0){
+            System.out.println("ddeboa");
+        }else {
+            System.out.println("its over");
+        }*/
+
+
+        if(getQntd_emprestimo()==3 || cont>0){
             setStatus(false);
-        } else if(getData_multa()!=null){
+        } //else if(getData_multa()!=null){ <<<<<<<<<<<<ANTES ERA ASSIM
+        else if(getMulta()!=0){
             if((int) ChronoUnit.DAYS.between(getData_multa(),LocalDate.now())>getMulta()){
                 setStatus(true);
+                setMulta(0);// essa linha n existia antes<<<
+                setData_multa(null);
             }else{
                 setStatus(false);
             }
@@ -69,7 +99,7 @@ public class Usuario extends Pessoa {
     }
 
     public void setMulta(int multa) {
-        this.multa = multa;
+        this.multa += multa;
     }
 
     public LocalDate getData_multa() {

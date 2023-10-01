@@ -1,6 +1,7 @@
 package Model;
 
 public class Operadores extends Pessoa{
+
     private String cargo;
     private String senha_de_acesso;
 
