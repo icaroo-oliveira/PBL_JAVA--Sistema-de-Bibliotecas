@@ -1,6 +1,5 @@
 package dao;
 
-import Model.Operadores;
 import dao.Emprestimo.EmprestimoDAO;
 import dao.Emprestimo.EmprestimoDAOLista;
 import dao.Livro.LivroDAO;
