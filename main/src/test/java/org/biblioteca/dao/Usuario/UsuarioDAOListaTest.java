@@ -26,17 +26,16 @@ class UsuarioDAOListaTest {
     @AfterEach
     void tearDown() {
         DAO.getUsuarioDAO().deleteMany();
+        DAO.getLivroDAO().deleteMany();
+        DAO.getEmprestimoDAO().deleteMany();
     }
 
     @Test
     void create() {
-        Usuario esperado = new Usuario("m", "F", "3",5);
+        Usuario esperado = new Usuario("m", "F", "3",3);
         Usuario atual = DAO.getUsuarioDAO().create(new Usuario("m", "F", "3",3));
-        System.out.println(atual);
-        System.out.println(esperado);
 
         assertEquals(esperado,atual);
-
 
 
     }
@@ -52,9 +51,13 @@ class UsuarioDAOListaTest {
     @Test
     void failDelete() throws Exception{
         try {
-            DAO.getUsuarioDAO().delete(new Usuario("rebeka", "bairro sim", "000001",0));
+            Usuario rebeca = new Usuario("rebeka", "bairro sim", "000001",6);
+
+            DAO.getUsuarioDAO().delete(rebeca);
+
             fail("Uma exceção deveria ser gerada!!");
         } catch (UsuarioException e) {
+            System.out.println(e.getMessage());
             assertEquals(UsuarioException.DELETE, e.getMessage());
         }
     }
@@ -96,7 +99,10 @@ class UsuarioDAOListaTest {
     void findById() throws Exception{
         Usuario esperado = new Usuario("Samantha","feira 6","1",0);
 
-        Usuario atual = DAO.getUsuarioDAO().findById(1);
+        Usuario atual = DAO.getUsuarioDAO().findById(0);
+        System.out.println(esperado);
+        System.out.println(atual);
+
         assertEquals(esperado, atual);
 
     }
@@ -104,11 +110,12 @@ class UsuarioDAOListaTest {
     @Test
     void failfindById() throws Exception{
         try {
-            Usuario esperado = new Usuario("Robert","feira 7","1",5);
+            Usuario esperado = new Usuario("Samantha","feira 6","1",0);
 
             DAO.getUsuarioDAO().findById(esperado.getId());
 
         } catch (UsuarioException e) {
+            System.out.println(e.getMessage());
             assertEquals(UsuarioException.FIND, e.getMessage());
         }
 
