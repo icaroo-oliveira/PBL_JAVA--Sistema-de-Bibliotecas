@@ -1,8 +1,10 @@
 package org.biblioteca.Model;
 
+import org.biblioteca.dao.DAO;
 import org.biblioteca.excepctions.*;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Queue;
 
 import org.biblioteca.Model.Usuario;
@@ -10,7 +12,9 @@ import org.biblioteca.Model.Usuario;
 
 import java.util.LinkedList;
 
-
+/**
+ * Classe Livro, responsável por servir de criação dos livros
+ */
 public class Livro {
     private String titulo;
     private String autor;
@@ -36,6 +40,25 @@ public class Livro {
         this.popularity=0;
     }
 
+    public Livro(String titulo, String autor, int ISBN,String categoria) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.ISBN = ISBN;
+        this.disponibilidade=true;
+        this.popularity=0;
+        this.categoria=categoria;
+    }
+
+    public Livro(String titulo, String autor, int ISBN,String categoria,int id) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.ISBN = ISBN;
+        this.disponibilidade=true;
+        this.popularity=0;
+        this.categoria=categoria;
+        this.id=id;
+    }
+
     public int getId() {
         return id;
     }
@@ -44,10 +67,17 @@ public class Livro {
         this.id = id;
     }
 
-    public void Reservar_livro(Usuario usuario,LocalDate empr) throws LivroException {//se lgiar nessa logica aqui dps tbm
+    /**
+     * Método para Reservar um livro que ja está emprestado, ele vai verificar o status do usuario, se o usuario estiver com status negativo é lançada uma esceção
+     * @param usuario usuario que quer reservar um livro
+     * @param empr data do pedido da reserva
+     * @throws Exception Exceção lançada caso o usuario esteja negativado
+     */
+    public void Reservar_livro(Usuario usuario,LocalDate empr) throws Exception {//se lgiar nessa logica aqui dps tbm
 
-        if(!getDisponibilidade() && usuario.Status1(empr)){//getFila().isEmpty()
+        if(!getDisponibilidade() && usuario.Status1(empr) && usuario.getStatus()){//getFila().isEmpty() //usuario.getsatus foi novo pro teste
             this.fila_pelo_livro.add(usuario);//se ligar nisso...
+            DAO.getLivroDAO().update(this);//ISSO É MUITO NOVO<<
         }else{
 
             throw new LivroException(LivroException.RESERVA,this);
@@ -56,7 +86,14 @@ public class Livro {
 
     }
 
-
+    /**
+     * Método pra fazer empréstimo do livro, ja dentro do livro mesmo
+     * @param usuario usuario que quer fazer emprestimo
+     * @param emp_data data de emprestimo
+     * @param emp_data_dev data de devolucao
+     * @throws EmprestimoException exceção lançada nos casos que não é possíve fazer emprestimo
+     * @throws LivroException
+     */
     public void Fazer_emprestimo(Usuario usuario,LocalDate emp_data,LocalDate emp_data_dev) throws EmprestimoException, LivroException {
         this.emprestimo = new Emprestimo(usuario,this,emp_data,emp_data_dev);//MODIFIQUEI ISSO, ANTES ERA :this.emprestimo = new Emprestimo(usuario,this)
         this.popularity++;
@@ -82,8 +119,8 @@ public class Livro {
         return popularity;
     }
 
-    public void setPopularity(int popularity) {
-        this.popularity = popularity;
+    public void setPopularity() {
+        this.popularity +=1;
     }
 
     public String getTitulo() {
@@ -146,4 +183,18 @@ public class Livro {
         return fila_pelo_livro;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Livro)) return false;
+        Livro livro = (Livro) o;
+
+
+        return Objects.equals(getISBN(), livro.getISBN()) && Objects.equals(getId(), livro.getId()) && Objects.equals(getTitulo(), livro.getTitulo()) && Objects.equals(getAutor(), livro.getAutor());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(titulo, autor, ISBN, id);
+    }
 }

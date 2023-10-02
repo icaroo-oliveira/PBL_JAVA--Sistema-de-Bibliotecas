@@ -6,6 +6,9 @@ import org.biblioteca.excepctions.EmprestimoException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * CLASSE dao para o Emprestimo, servirá para separar a lógica de negocio do armazenamento de dados
+ */
 public class EmprestimoDAOLista implements EmprestimoDAO{
 
     private List<Emprestimo> lista;
@@ -21,6 +24,12 @@ public class EmprestimoDAOLista implements EmprestimoDAO{
     private int getProximoID(){
         return this.proximoID++;
     }
+
+    /**
+     * Método para criar um Emprestimo na lista
+     * @param obj objeto ja instanciado que será criado
+     * @return retorna o mesmo objeto
+     */
     @Override
     public Emprestimo create(Emprestimo obj) {
         obj.setId_emprestimo(this.getProximoID());
@@ -28,6 +37,11 @@ public class EmprestimoDAOLista implements EmprestimoDAO{
         return obj;
     }
 
+    /**
+     * Método para deletar um dado objeto
+     * @param obj objeto a ser deletado
+     * @throws EmprestimoException lança uma exceção caso o objeto não exista
+     */
     @Override
     public void delete(Emprestimo obj) throws EmprestimoException {
 
@@ -38,13 +52,23 @@ public class EmprestimoDAOLista implements EmprestimoDAO{
 
     }
 
+    /**
+     * método que deleta a lista toda
+     */
     @Override
     public void deleteMany() {
         this.lista = new ArrayList<>();
+        this.proximoID = 0;
 
 
     }
 
+    /**
+     * método de atualizacao de empréstimo
+     * @param obj emprestimo a ser atualizado
+     * @return retorna o emprestimo
+     * @throws EmprestimoException lança uma esceção caso o emprestimo não exista
+     */
     @Override
     public Emprestimo update(Emprestimo obj) throws EmprestimoException {
         //public Emprestimo update(Emprestimo obj,Emprestimo obj1) throws EmprestimoException {
@@ -61,13 +85,21 @@ public class EmprestimoDAOLista implements EmprestimoDAO{
     }
 
 
-
-
+    /**
+     * método para encontrar todos os empréstimos
+     * @return retorna uma lista com todos os empréstimos
+     */
     @Override
     public List<Emprestimo> findMany() {
         return this.lista;
     }
 
+    /**
+     * método para encontrar um empréstimo pelo ID
+     * @param id id do empréstimo a ser encontrado
+     * @return retorna o empréstimo de um dado ID
+     * @throws EmprestimoException lança uma mensagem de exceção caso o emprestimo não seja encontrado
+     */
     @Override
     public Emprestimo findById(int id) throws EmprestimoException {
 

@@ -2,6 +2,9 @@ package org.biblioteca.excepctions;
 
 import org.biblioteca.Model.Usuario;
 
+/**
+ * classe que gerara mensagens de excecoes para os usuários
+ */
 public class UsuarioException extends Exception{
 
     public static final String CREATE = "Não foi possível criar um Usuario";

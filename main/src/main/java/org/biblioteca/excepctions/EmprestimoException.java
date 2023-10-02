@@ -2,9 +2,14 @@ package org.biblioteca.excepctions;
 
 import org.biblioteca.Model.Emprestimo;
 
+/**
+ * Classe que gerará mensagens de exceções para o emprestimo
+ */
 public class EmprestimoException extends Exception{
 
     public static final String CREATE = "Operação de Emprestimo não realizada.";
+
+    public static final String CREATE_mais_3 = "Operação de Emprestimo não realizada, 3 Empréstimos ativos";
     public static final String UPDATE = "Operação de ATUALIZAÇÃO não realizada.";
 
     public static final String DELETE = "Operação de EXCLUSÃO não realizada.";

@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
+/**
+ * Classe responável pela criação de usuários
+ */
 public class Usuario extends Pessoa {
     private boolean status;
     private List<Emprestimo> historico_livro;
@@ -16,6 +18,13 @@ public class Usuario extends Pessoa {
 
     private int qntd_emprestimo;
 
+    /**
+     *
+     * @param nome nome do usuario
+     * @param endereco endereco do usuario
+     * @param telefone telefone do usuario
+     * @param id id do usuario
+     */
     public Usuario(String nome,String endereco,String telefone,int id) {
         super(nome,endereco,telefone,id);
         this.status = true;
@@ -28,8 +37,11 @@ public class Usuario extends Pessoa {
     }
 
 
-
-
+    /**
+     *
+     * @param empres data da tentativa de fazer emprestimo ou reservar um livro, sera usada para saber a situacao atual do usuario
+     * @return retorna true se tudo ta ok com usuario, false caso contrario
+     */
     public boolean Status1(LocalDate empres){
         int n = getHistorico_livro().size();
         int cont=0;
@@ -50,7 +62,7 @@ public class Usuario extends Pessoa {
                 }
             }
         }
-        System.out.println(cont);
+        //System.out.println(cont);
 
         /*if(cont==0){
             System.out.println("ddeboa");
@@ -63,9 +75,10 @@ public class Usuario extends Pessoa {
             setStatus(false);
         } //else if(getData_multa()!=null){ <<<<<<<<<<<<ANTES ERA ASSIM
         else if(getMulta()!=0){
-            if((int) ChronoUnit.DAYS.between(getData_multa(),LocalDate.now())>getMulta()){
+            //if((int) ChronoUnit.DAYS.between(getData_multa(),LocalDate.now())>getMulta()){ era assim antes
+            if((int) ChronoUnit.DAYS.between(getData_multa(),empres)>getMulta()){
                 setStatus(true);
-                setMulta(0);// essa linha n existia antes<<<
+                setMulta_1(0);// essa linha n existia antes<<<
                 setData_multa(null);
             }else{
                 setStatus(false);
@@ -104,6 +117,10 @@ public class Usuario extends Pessoa {
         this.multa += multa;
     }
 
+    public void setMulta_1(int multa) {
+        this.multa = multa;
+    }
+
     public LocalDate getData_multa() {
         return data_multa;
     }
@@ -126,12 +143,15 @@ public class Usuario extends Pessoa {
                 '}';
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Usuario)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
+
         Usuario usuario = (Usuario) o;
-        return getStatus() == usuario.getStatus() && getMulta() == usuario.getMulta() && getQntd_emprestimo() == usuario.getQntd_emprestimo() && Objects.equals(getHistorico_livro(), usuario.getHistorico_livro()) && Objects.equals(getData_multa(), usuario.getData_multa());
+
+        return Objects.equals(getId(), usuario.getId()) && Objects.equals(getNome(), usuario.getNome()) && Objects.equals(getEndereco(), usuario.getEndereco()) && Objects.equals(getTelefone(), usuario.getTelefone());
     }
 
 

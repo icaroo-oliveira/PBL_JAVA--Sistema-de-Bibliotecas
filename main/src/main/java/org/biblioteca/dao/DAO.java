@@ -10,6 +10,10 @@ import org.biblioteca.dao.Operadores.OperadoresDAOLista;
 import org.biblioteca.dao.Usuario.UsuarioDAO;
 import org.biblioteca.dao.Usuario.UsuarioDAOLista;
 
+
+/**
+ * Classe DAO, aplicando padrão singleton para todos os DAO
+ */
 public class DAO {
 
     private static EmprestimoDAO EmprestimoDAO;

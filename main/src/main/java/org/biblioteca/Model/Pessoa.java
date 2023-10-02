@@ -1,5 +1,8 @@
 package org.biblioteca.Model;
 
+/**
+ * Classe pai de uusuários e operadores, os atributos de nome,endereco etc sao herdados pelas classes filhas
+ */
 public class Pessoa {
     private String nome;
     private String endereco;

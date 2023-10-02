@@ -2,6 +2,9 @@ package org.biblioteca.excepctions;
 
 import org.biblioteca.Model.Operadores;
 
+/**
+ * Classe que gerará mensagens de exceções para os operadores
+ */
 public class OperadoresException extends Exception{
 
     public static final String CREATE = "Não foi possível criar o Operador";

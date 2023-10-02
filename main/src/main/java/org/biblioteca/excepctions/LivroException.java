@@ -2,6 +2,9 @@ package org.biblioteca.excepctions;
 
 import org.biblioteca.Model.Livro;
 
+/**
+ * Classe que gerará mensagens de exceções para os livros
+ */
 public class LivroException extends Exception{
 
     public static final String CREATE = "Não foi possível criar um livro";
