@@ -15,6 +15,9 @@
 
 ![Diagrama de Classe](/doc/Diagrama_de_classes.pdf)
 
+### Diagrama de Casos de Uso
+![Diagrama de Casos de Uso](/doc/casos_de_usos.pdf)
+
 ### Requisitos do sistema
 1. **Registro de Livros:** Permite adicionar diferentes tipos de livro, com campos como: autor, titulo, editora, ISBN, categoria e disponibilidade.
 2. **Pesquisa de Livros:** Os usuários devem ser capazes de pesquisar livros por autor, titulo, ISBN ou categoria.
