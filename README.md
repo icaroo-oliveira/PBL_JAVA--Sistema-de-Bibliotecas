@@ -30,7 +30,7 @@
 ### Estrutura de diretórios para desenvolvimento
 - [model](main/src/main/java/org/biblioteca/Model): modelos de dados do sistema
 - [dao](main/src/main/java/org/biblioteca/dao): implementação do padrão DAO (Data Access Object)
-- [exceptions](main/src/main/src/main/java/org/biblioteca/excepctions): modelos de exceções
+- [exceptions](main/src/main/java/org/biblioteca/excepctions): modelos de exceções
 - *controller (em breve...):*
 - *view (em breve...):*
 ## Desenvolvimento
