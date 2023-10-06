@@ -12,17 +12,29 @@ import java.util.List;
 public class OperadoresDAOLista implements OperadoresDAO{
 
 
+    /**
+     * Lista de Operadores, vai guardar todos os Operadores ja adicionados ao sistema, em uma lista
+     */
     private List<Operadores> lista;
-
+    /**
+     * variável que guardará o próximo ID a ser utilizado, tipo um contador.
+     */
     private int proximoID;
 
+    /**
+     * Construtor para classe, quando iniciado o singleton, é criado uma nova lista e zerado o id para contagem
+     */
     public OperadoresDAOLista() {
         this.lista = new ArrayList<>();
         this.proximoID = 0;
     }
 
+    /**
+     * método para contagem dos id's
+     * @return retorna o próximo id a ser usado
+     */
     private int getProximoID(){
-        return this.proximoID++;//se ligar nisso (?)
+        return this.proximoID++;
     }
 
     /**
