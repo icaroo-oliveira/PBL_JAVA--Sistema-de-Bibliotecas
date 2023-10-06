@@ -12,12 +12,20 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * Classe de teses para os usuarios
+ */
 class UsuarioTest {
 
     Usuario robson,marcela,janaina,petra;
     Livro fome,demian,Os_tres,sidarta;
 
     Emprestimo e1,e2,e3,e4;
+
+    /**
+     * seta todos os usuarios e livros que serão usados em alguns testes
+     */
     @BeforeEach
     void setUp() {
         robson = new Usuario("Robson","parque ipe","7544453216",0);
@@ -34,6 +42,9 @@ class UsuarioTest {
 
     }
 
+    /**
+     * deleta as listas de usuario, livro e emprestimo
+     */
     @AfterEach
     void tearDown() {
 
@@ -44,6 +55,10 @@ class UsuarioTest {
 
     }
 
+    /**
+     * teste onde o usuário sai de um status ''negativo''(false) para um positivo(true)
+     * teste onde o usário ta multado, e depois que a multa acaba ele tenta fazer um emprestimo e consegue
+     */
     @Test
     void status1() {//TESTE USUARIO STATUS NEGATIVO ---> FICANDO POSITIVO
         //usuario com status negativo:
@@ -59,6 +74,12 @@ class UsuarioTest {
         assertTrue(status_value);
         assertEquals(0,robson.getMulta());
     }
+
+    /**
+     * Teste onde o usuário esta com status true e fica false
+     * Realiza emprestimos e dps tenta fazer um terceiro, mas n devolveu os livros e ja passou da data de devolucao
+     * @throws Exception exceccao do emprestimo
+     */
     @Test
     void status_2() throws Exception {//TESTE USUARIO COM STATUS POSITIVO --> FICANDO NEGATIVO
 
@@ -73,10 +94,14 @@ class UsuarioTest {
         //Como ele não devolveu os dois livros o status ficou negativo
         assertFalse(value_status);
 
-        //assertEquals(2,robson.getHistorico_livro().size());
 
     }
 
+    /**
+     * status positivo se mantém positivo
+     * faz emprestimos, devolve, e faz um novo
+     * @throws Exception excecao do emprestimo
+     */
     @Test
     void status_2_dando_certo() throws Exception {//TESTE USUARIO COM STATUS POSITIVO --> Mantendo-se positivo
 
@@ -95,11 +120,8 @@ class UsuarioTest {
         //ele devolveu um dos livros, estava sem multa, e o outro ainda tinha tempo para devolver
         assertTrue(value_status);
 
-        //assertEquals(2,robson.getHistorico_livro().size());
+
 
     }
 
-    @Test
-    void bloqueando() {
-    }
 }

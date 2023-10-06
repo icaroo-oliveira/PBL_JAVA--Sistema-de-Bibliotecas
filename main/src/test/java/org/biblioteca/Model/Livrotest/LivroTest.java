@@ -13,6 +13,9 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * classe de testes para os livros
+ */
 class LivroTest {
     Usuario junior;
     Usuario felipe;
@@ -35,6 +38,9 @@ class LivroTest {
     Emprestimo emp_5;
 
 
+    /**
+     * setando os usuarios e os livros a ser usados antes de cada teste
+     */
     @BeforeEach
     void setUp() {
         junior = DAO.getUsuarioDAO().create(new Usuario("Junior Macedo","feira 1","75-99999999",0));
@@ -48,6 +54,9 @@ class LivroTest {
         sidarta = DAO.getLivroDAO().create(new Livro("Sidarta","Herman Hesse",6));
     }
 
+    /**
+     * apagando as listas de livro, emprestimo e usuarios
+     */
     @AfterEach
     void tearDown() {
         DAO.getLivroDAO().deleteMany();
@@ -56,6 +65,10 @@ class LivroTest {
 
     }
 
+    /**
+     * teste para reserva de livros
+     * @throws Exception lança uma exceção se nao for possivel a reserva
+     */
     @Test
     void reservar_livro() throws Exception {
         demian.setDisponibilidade(false);
@@ -67,6 +80,10 @@ class LivroTest {
 
     }
 
+    /**
+     * teste de falha na reserva
+     * @throws Exception lança uma excecao de falha na reserva
+     */
     @Test
     void failReservar_livro() throws Exception{
         try{
