@@ -13,7 +13,7 @@
 
 ### Diagrama de Classes
 
-![Diagrama de Classe](/doc/Diagrama_de_classes.pdf)
+![Diagrama de Classe](/doc/diagrama_classe_biblioteca.pdf)
 
 ### Diagrama de Casos de Uso
 ![Diagrama de Casos de Uso](/doc/casos_de_usos.pdf)
