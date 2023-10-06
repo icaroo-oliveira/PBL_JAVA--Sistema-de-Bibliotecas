@@ -14,6 +14,10 @@ import java.util.List;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * classe para testar a classe Emprestimo
+ */
 class EmprestimoTest {
 
     Usuario junior;
@@ -36,6 +40,9 @@ class EmprestimoTest {
 
     Emprestimo emp_5;
 
+    /**
+     * setando os usuarios e os livros antes de cada teste
+     */
     @BeforeEach
     void setUp() {
         junior = DAO.getUsuarioDAO().create(new Usuario("Junior Macedo","feira 1","75-99999999",0));
@@ -49,6 +56,9 @@ class EmprestimoTest {
         sidarta = DAO.getLivroDAO().create(new Livro("Sidarta","Herman Hesse",6));
     }
 
+    /**
+     * deletando as listas dos emprestimos, livro e usuario depois de cada teste
+     */
     @AfterEach
     void tearDown() {
         DAO.getEmprestimoDAO().deleteMany();
@@ -57,7 +67,10 @@ class EmprestimoTest {
     }
 
 
-
+    /**
+     * teste de realização de empréstimo
+     * @throws Exception exxceção quando não é possível fazer o emprestimo devido o status do usuario
+     */
     @Test
     void realizar_empresitmo() throws Exception {
 
@@ -82,8 +95,12 @@ class EmprestimoTest {
 
     }
 
+    /**
+     *Teste para uma unica pessoa realizando mais de 3 empréstimos, no 4 da um erro de criação de empréstimo
+     * @throws Exception lançada devido ao usuário estar tentando fazer um empréstimo
+     */
     @Test
-    void realizando_muitos_emprestimos_uma_pessoa() throws LivroException,EmprestimoException{
+    void realizando_muitos_emprestimos_uma_pessoa() throws Exception{
         //limite de emprestimos ativos simultaneamente = 3
         try{
             Emprestimo emp_11 = new Emprestimo(felipe,demian,LocalDate.of(2023,10,1),LocalDate.of(2023,10,8));
@@ -97,6 +114,11 @@ class EmprestimoTest {
         }
     }
 
+    /**
+     * Teste de tentando emprestar um livro ja em emprestimo
+     * os usuarios acabam indo pra fila
+     * @throws Exception pode lançar na criação do emprestimo (falha na criação)
+     */
     @Test
     void tentando_fazer_emprestimo_de_livro_ocupado() throws Exception{
         Emprestimo emp_111 = new Emprestimo(felipe,demian,LocalDate.of(2023,10,1),LocalDate.of(2023,10,8));
@@ -111,6 +133,11 @@ class EmprestimoTest {
         assertEquals(2,demian.getFila().size());
     }
 
+    /**
+     * Teste de falha na realização do empréstimo
+     * um emprestimo é feito e é devolvido muito tarde, usuario é multado e tenta fazer um novo empréstimo, falhando
+     * @throws Exception exceção lançada pela falha do empréstimo
+     */
     @Test
     void failFazendoemprestimo() throws Exception{
 
@@ -129,6 +156,11 @@ class EmprestimoTest {
 
     }
 
+    /**
+     * teste para o calculo de multas, ve se o usuario foi multado em um determinado momento
+     * como o periodo em que foi solicitado o calculo da multa estava no intervalo entre emprestimo e devolucao esperada, nao foi multado
+     * @throws Exception pode lançar uma exceção no momento do emprestimo
+     */
     @Test
     void calcula_multa() throws Exception {
 
@@ -140,6 +172,11 @@ class EmprestimoTest {
 
     }
 
+    /**
+     * Teste de calculo da multa, onde o usuario foi multado
+     * ele devolve os livros tarde demais
+     * @throws Exception
+     */
     @Test
     void calcula_multa_multado() throws Exception {
         //multa se acumulando
@@ -158,6 +195,10 @@ class EmprestimoTest {
 
     }
 
+    /**
+     * Teste para renovação do empréstimo
+     * @throws Exception pode ser lançada na renovação do empréstimo
+     */
     @Test
     void renovar_emprestimo() throws Exception {
         //Fazendo um emprestimo e renovando, o assert verifica a quantidade de renovacoes, sendo que qnd faz um emprestimo ja começa com o valor 1
@@ -176,6 +217,13 @@ class EmprestimoTest {
         assertEquals(2,demian.getFila().size());
 
     }
+
+
+    /**
+     * Teste falho de renovacao, usuario faz 2 emprestimos, devolve um muito tarde e tenta renovar o outro q ele tinha
+     *
+     * @throws Exception lança exceçao de atualizaco
+     */
     @Test
     void failRenovando_emprestimo() throws Exception{
         try{
@@ -185,22 +233,47 @@ class EmprestimoTest {
             DAO.getEmprestimoDAO().create(emp_1);
 
             //criando novo emprestimo
-            emp_2 = new Emprestimo(junior,fome,LocalDate.of(2023,10,6),LocalDate.of(2023,10,13));
+            emp_2 = new Emprestimo(felipe,fome,LocalDate.of(2023,10,6),LocalDate.of(2023,10,13));
             emp_2.Realizar_empresitmo(emp_2.getData_emprestimo());
             DAO.getEmprestimoDAO().create(emp_2);
 
             //devolvendo o livro muito tarde...
             emp_1.Devolucao(LocalDate.of(2023,10,11));
 
+
+
             //tentando renovar o segundo emprestimo enquanto ta multado...
             emp_2.Renovar_emprestimo(LocalDate.of(2023,10,12),LocalDate.of(2023,10,19));
 
+            System.out.println(emp_2.getUsuario().getMulta());
         }catch (EmprestimoException e){
             assertEquals(EmprestimoException.UPDATE,e.getMessage());
         }
     }
 
+    /**
+     * Usuario tenta emprestar um livro, cai na lista de espera dele, ele é devolvido e esse usuario consegue emprestar o livro
+     * @throws Exception excecao qnd o emprestimo nao é concluido
+     */
     @Test
-    void verificando_data_emprestimo() {
+    void emprestando_depois_de_ficar_na_fila_pelo_livro() throws Exception{
+        Emprestimo emp_111 = new Emprestimo(felipe,demian,LocalDate.of(2023,10,1),LocalDate.of(2023,10,8));
+        emp_111.Realizar_empresitmo(emp_111.getData_emprestimo());
+
+        //Junior e Gabriel tenta fazer empréstimo desse livro, e cai na fila de reserva
+        Emprestimo emp_112 = new Emprestimo(junior,demian,LocalDate.of(2023,10,2),LocalDate.of(2023,10,9));
+        Emprestimo emp_113 = new Emprestimo(gabriel,demian,LocalDate.of(2023,10,3),LocalDate.of(2023,10,10));
+        emp_112.Realizar_empresitmo(emp_112.getData_emprestimo());
+        emp_113.Realizar_empresitmo(emp_113.getData_emprestimo());
+
+        //devolvendo o livro demian
+        emp_111.Devolucao(LocalDate.of(2023,10,7));
+
+        Emprestimo emp52 = new Emprestimo(junior,demian,LocalDate.of(2023,10,8),LocalDate.of(2023,10,15));
+
+        emp52.Realizar_empresitmo(emp52.getData_emprestimo());
+
+        assertEquals(1,demian.getFila().size());
+
     }
 }
