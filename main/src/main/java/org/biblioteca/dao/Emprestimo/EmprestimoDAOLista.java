@@ -11,16 +11,29 @@ import java.util.List;
  */
 public class EmprestimoDAOLista implements EmprestimoDAO{
 
+    /**
+     * Lista de empréstimo, vai guardar todos os empréstimos feitos em uma lista
+     */
     private List<Emprestimo> lista;
 
+    /**
+     * variável que guardará o próximo ID a ser utilizado, tipo um contador.
+     */
     private int proximoID;
 
 
+    /**
+     * Construtor para classe, quando iniciado o singleton, é criado uma nova lista e zerado o id para contagem
+     */
     public EmprestimoDAOLista() {
         this.lista = new ArrayList<>();
         this.proximoID = 0;
     }
 
+    /**
+     * método para contagem dos id's
+     * @return retorna o próximo id a ser usado
+     */
     private int getProximoID(){
         return this.proximoID++;
     }
@@ -33,7 +46,7 @@ public class EmprestimoDAOLista implements EmprestimoDAO{
     @Override
     public Emprestimo create(Emprestimo obj) {
         obj.setId_emprestimo(this.getProximoID());
-        lista.add(obj);
+        this.lista.add(obj);
         return obj;
     }
 
@@ -67,12 +80,10 @@ public class EmprestimoDAOLista implements EmprestimoDAO{
      * método de atualizacao de empréstimo
      * @param obj emprestimo a ser atualizado
      * @return retorna o emprestimo
-     * @throws EmprestimoException lança uma esceção caso o emprestimo não exista
+     * @throws EmprestimoException lança uma exceção caso o emprestimo não exista
      */
     @Override
     public Emprestimo update(Emprestimo obj) throws EmprestimoException {
-        //public Emprestimo update(Emprestimo obj,Emprestimo obj1) throws EmprestimoException {
-
 
         int index = this.lista.indexOf(obj);
         if (index == -1) {
