@@ -10,12 +10,28 @@ import java.util.Objects;
  * Classe responável pela criação de usuários
  */
 public class Usuario extends Pessoa {
+    /**
+     * status do usuario
+     */
     private boolean status;
+    /**
+     * lista com os emprestimo do usuario
+     */
     private List<Emprestimo> historico_livro;
+
+    /**
+     * multa do usuario, em dias
+     */
     private int multa;
 
+    /**
+     * data da multa do usuario
+     */
     private LocalDate data_multa;
 
+    /**
+     * quantidade de emprestimo simultaneamente
+     */
     private int qntd_emprestimo;
 
     /**
@@ -48,12 +64,6 @@ public class Usuario extends Pessoa {
 
         if(!getHistorico_livro().isEmpty()){
 
-            //  \/ (???????????????????)
-            //Emprestimo ultimo = getHistorico_livro().get(n-1);
-            //Emprestimo penultimo = getHistorico_livro().get(n-2);
-            //Emprestimo antepenultimo = getHistorico_livro().get(n-3);
-
-
             for (int i = 1; i < 4; i++) {
                 try {
                     cont+=getHistorico_livro().get(n-i).verificando_data_emprestimo(empres);
@@ -62,23 +72,14 @@ public class Usuario extends Pessoa {
                 }
             }
         }
-        //System.out.println(cont);
-
-        /*if(cont==0){
-            System.out.println("ddeboa");
-        }else {
-            System.out.println("its over");
-        }*/
-
 
         if(getQntd_emprestimo()==3 || cont>0){
             setStatus(false);
-        } //else if(getData_multa()!=null){ <<<<<<<<<<<<ANTES ERA ASSIM
+        }
         else if(getMulta()!=0){
-            //if((int) ChronoUnit.DAYS.between(getData_multa(),LocalDate.now())>getMulta()){ era assim antes
             if((int) ChronoUnit.DAYS.between(getData_multa(),empres)>getMulta()){
                 setStatus(true);
-                setMulta_1(0);// essa linha n existia antes<<<
+                setMulta_1(0);
                 setData_multa(null);
             }else{
                 setStatus(false);
@@ -87,52 +88,97 @@ public class Usuario extends Pessoa {
         return getStatus();
     }
 
+    /**
+     * método para bloquear o usuario
+     */
     public void Bloqueando(){
         setStatus(false);
     }
 
+    /**
+     * getter para o status do usuario
+     * @return retorna o status do usuario
+     */
     public boolean getStatus() {
         return status;
     }
 
+    /**
+     * setter para o status do usuario
+     * @param status status do usuario
+     */
     public void setStatus(boolean status) {
         this.status = status;
     }
 
+    /**
+     * getter para o historico de emprestimo do usuario
+     * @return retorna o historico de emprestimo
+     */
     public List<Emprestimo> getHistorico_livro() {
         return historico_livro;
     }
 
-    public void setHistorico_livro(Emprestimo emprestimo) {//se ligar nisso
-        this.historico_livro.add(emprestimo); //antes
-        //depois \/
-        //getHistorico_livro().add(emprestimo);
+    /**
+     * método para adicionar emprestimo no historico do usuario
+     * @param emprestimo emprestimo a ser adicionado
+     */
+    public void setHistorico_livro(Emprestimo emprestimo) {
+        this.historico_livro.add(emprestimo);
     }
 
+    /**
+     * getter para multa do usuario
+     * @return retorna a multa do usuario
+     */
     public int getMulta() {
         return multa;
     }
 
+    /**
+     * método para acumular a multa do usuario
+     * @param multa multa do usuario
+     */
     public void setMulta(int multa) {
         this.multa += multa;
     }
 
+    /**
+     * setter para multa do usuario
+     * @param multa multa do usuario
+     */
     public void setMulta_1(int multa) {
         this.multa = multa;
     }
 
+    /**
+     * getter para data de multa do usuario
+     * @return retorna a data de multa do usuario(ultima devolucao)
+     */
     public LocalDate getData_multa() {
         return data_multa;
     }
 
+    /**
+     * setter para data de multa do usuario
+     * @param data_multa data da ultima devolucao do usuario(se foi multado)
+     */
     public void setData_multa(LocalDate data_multa) {
         this.data_multa = data_multa;
     }
 
+    /**
+     * getter para quantidade de empréstimo
+     * @return retorna quantidade de emprestimo simultanea
+     */
     public int getQntd_emprestimo() {
         return qntd_emprestimo;
     }
 
+    /**
+     * método to string
+     * @return os atributos do usuario para faciliar no print
+     */
     @Override
     public String toString() {
         return "Usuario{" +
@@ -144,6 +190,11 @@ public class Usuario extends Pessoa {
     }
 
 
+    /**
+     * método equals, o que faz um objeto usuario ser igual a outro
+     * @param o objeto generico
+     * @return retorna a comparacao
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -155,11 +206,18 @@ public class Usuario extends Pessoa {
     }
 
 
+    /**
+     * hash code
+     * @return numero hash do usuario
+     */
     @Override
     public int hashCode() {
         return Objects.hash(getStatus(), getHistorico_livro(), getMulta(), getData_multa(), getQntd_emprestimo());
     }
 
+    /**
+     * métodos para acumular empréstimos
+     */
     public void setQntd_emprestimo() {
         this.qntd_emprestimo++;
     }

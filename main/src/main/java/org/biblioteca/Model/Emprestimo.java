@@ -13,16 +13,48 @@ import java.util.Objects;
 
 /**
  * Classe Emprestimo é a classe responsável por manipular tudo relacionado ao empréstimo
+ * multas,renovacoes de emprestimo, realizacao de emprestimo...
  */
 public class Emprestimo {
+
+    /**
+     * Data da realização do empréstimo
+     */
     private LocalDate data_emprestimo;
+
+    /**
+     * Data do dia que o usuário devolveu o livro
+     */
     private LocalDate data_devolucao;
+
+    /**
+     * Data de devolução esperada, calculada com base na data de emprestimo + 7 dias
+     */
     private LocalDate data_devolucao_esperada;
+
+    /**
+     * id do empréstimo
+     */
     private int id_emprestimo;
-    private int status_emprestimo;//0 = tudo de boa, 1=atrasado,2=finalizado
+
+    /**
+     * Status do empréstimo, 0 ativo, 2 finalizado
+     */
+    private int status_emprestimo;
+
+    /**
+     * Usuario que está fazendo o empréstimo
+     */
     private Usuario usuario;
+
+    /**
+     * Livro que está sendo emprestado
+     */
     private Livro livro;
 
+    /**
+     * Quantidade de renovação do empréstimo daquele livro, no maximo 3.
+     */
     private int qnt_renovacao;
 
     /**
@@ -35,37 +67,23 @@ public class Emprestimo {
      * @throws LivroException //Exceção de livro lançada
      */
     public Emprestimo(Usuario usuario, Livro livro,LocalDate emp_data,LocalDate emp_data_devolve) throws EmprestimoException, LivroException {
-        this.data_emprestimo =emp_data; //LocalDate.now();
+        this.data_emprestimo =emp_data;
         this.data_devolucao = null;
-        //setData_devolucao_esperada(data_emprestimo);
         this.data_devolucao_esperada=emp_data_devolve;
         this.status_emprestimo =0;
         this.usuario = usuario;
         this.livro = livro;
         this.qnt_renovacao=1;
 
-        //Realizar_empresitmo(emp_data);
     }
-
-    /*public Emprestimo(Usuario usuario,Livro livro, int qnt_renovacao,int id_emprestimo,LocalDate emp_data,LocalDate emp_data_devolve) {
-        this.usuario=usuario;
-        this.livro=livro;
-        this.qnt_renovacao=qnt_renovacao;
-        this.id_emprestimo=id_emprestimo;
-        this.data_devolucao = null;
-        this.data_emprestimo = emp_data;//LocalDate.now();
-        //setData_devolucao_esperada(data_emprestimo);
-        this.data_devolucao_esperada=emp_data_devolve;
-        this.status_emprestimo =0;
-
-    }*/
 
 
     /**
      * Método responsável por calcular a multa, é chamado no momento da devolução
      * @param devolvendo data de devolução do livro, vai ser usado na comparação com a data de emprestimo
      */
-    public void Calcula_multa(LocalDate devolvendo){//não sei se esse método seria aqui...
+    public void Calcula_multa(LocalDate devolvendo){
+        setData_devolucao(devolvendo);
         int diferenca_devolucao= (int) ChronoUnit.DAYS.between(getData_emprestimo(), devolvendo);
         if(diferenca_devolucao>7){
             getUsuario().setMulta((diferenca_devolucao-7)*2);
@@ -87,44 +105,32 @@ public class Emprestimo {
      */
     public void Realizar_empresitmo(LocalDate emp_data) throws Exception {
 
-
-        //(AMARELO)QUANDO UM USUARIO Q JA TA COM UM LIVRO, TENTA FAZER O EMPRESTIMO DAQUELE MESMO LIVRO, ESSE MESMO USUARIO TA SENDO ADICONADO A FILA...
         if(getLivro().getDisponibilidade() && getUsuario().Status1(emp_data) && getLivro().getFila().isEmpty()){
 
-            //System.out.println("emprestimo feito");
             getLivro().setDisponibilidade(false);
             getUsuario().setHistorico_livro(this);
             getUsuario().setQntd_emprestimo();
             getLivro().setEmprestimo(this);
-            DAO.getEmprestimoDAO().create(this);//add agora por enquanto não é necessário, ja q eu to testando
+            DAO.getEmprestimoDAO().create(this);
             DAO.getLivroDAO().update(getLivro());
 
-        }else if(getLivro().getDisponibilidade() && getUsuario().Status1(emp_data) && Objects.requireNonNull(getLivro().getFila().peek()).getId()==getUsuario().getId()){// era assim: getLivro().getFila().peek().getId()==getUsuario().getId()
-            //System.out.println("emprestimo feito opcao da fila e id's iguais");
-
+        }else if(getLivro().getDisponibilidade() && getUsuario().Status1(emp_data) && Objects.requireNonNull(getLivro().getFila().peek()).getId()==getUsuario().getId()){
             getLivro().setDisponibilidade(false);
             getLivro().setEmprestimo(this);
             getUsuario().setHistorico_livro(this);
             getUsuario().setQntd_emprestimo();
-            DAO.getEmprestimoDAO().create(this);//add agora
+            DAO.getEmprestimoDAO().create(this);
             getLivro().getFila().poll();
-            DAO.getLivroDAO().update(getLivro());//NOVO<<
+            DAO.getLivroDAO().update(getLivro());
         }
         else{
 
-
-            //System.out.println("Algo errado...");
-
             if (!getLivro().getDisponibilidade() && getUsuario().Status1(emp_data)){
-
-
                 getLivro().Reservar_livro(getUsuario(),emp_data);
             }
             else if(getLivro().getDisponibilidade() && !getUsuario().Status1(emp_data)){
                 throw new EmprestimoException(EmprestimoException.CREATE,this);
             }
-
-
 
         }
     }
@@ -132,14 +138,13 @@ public class Emprestimo {
     /**
      * Método de devolução
      * @param devolve data da devolução
-     * @throws Exception é lançada uma exceção se esta tentando devolver um livro que nao foi emprestado, por exemplo
+     * @throws Exception é lançada uma exceção se esta tentando devolver um livro que nao foi emprestado
      */
     public void Devolucao(LocalDate devolve) throws Exception {
         Calcula_multa(devolve);
         getLivro().setDisponibilidade(true);
         getLivro().setEmprestimo(null);
-        DAO.getLivroDAO().update(getLivro());//add agora tbm
-        //DIMINUIR A QUANTIDADE DE EMPRESTIMO
+        DAO.getLivroDAO().update(getLivro());
     }
 
     /**
@@ -158,17 +163,10 @@ public class Emprestimo {
             DAO.getEmprestimoDAO().update(this);
             DAO.getLivroDAO().update(getLivro());
 
-
-            //ABAIXO PROBLEMA
-            //(1) Emprestimo copia = new Emprestimo(this.getUsuario(),this.getLivro(),this.getQnt_emprestimo(),this.getId_emprestimo(),this.getData_emprestimo(),emp_emprestimo_dev);// n tinha o emp_data...
-
-
-            //(1) DAO.getEmprestimoDAO().update(DAO.getEmprestimoDAO().findById(this.getId_emprestimo()),copia);//o update apaga o original e coloca uma cópia do original no mesmo local.
-
         }else if(!getLivro().getFila().isEmpty() && getUsuario().getStatus()){
             getLivro().Reservar_livro(getUsuario(),emp_emprestimo_new);
         }else{
-            throw new EmprestimoException(EmprestimoException.CREATE,this);
+            throw new EmprestimoException(EmprestimoException.UPDATE,this);
         }
     }
 
@@ -178,8 +176,6 @@ public class Emprestimo {
      * @return retorna 1 se o empréstimo ta ''vencido'' e 0 se ta tudo ok
      */
     public int verificando_data_emprestimo(LocalDate empres){
-
-        //int comparacao = LocalDate.now().compareTo(getData_devolucao_esperada());
         int comparacao = empres.compareTo(getData_devolucao_esperada());
         if(comparacao>0 && getStatus_emprestimo()!=2){
             return 1;
@@ -190,70 +186,141 @@ public class Emprestimo {
     }
 
 
+    /**
+     * getter para data de empretismo
+     * @return retorna data de emprestimo
+     */
     public LocalDate getData_emprestimo() {
         return data_emprestimo;
     }
+
+    /**
+     * setter para data de emprestimo
+     * @param emp_emprestimo_new data de emprestimo do livro
+     * chama uma funcao para calcular a data de devolucao esperada
+     */
     public void setData_emprestimo(LocalDate emp_emprestimo_new) {
-        //this.data_emprestimo = LocalDate.now();
         this.data_emprestimo = emp_emprestimo_new;
         setData_devolucao_esperada(emp_emprestimo_new);
     }
+
+    /**
+     * getter da data de devolucao
+     * @return retorna a data de devolucao de um emprestimo
+     */
     public LocalDate getData_devolucao() {
         return data_devolucao;
     }
 
-    public void setData_devolucao(int dia,int mes,int ano) {
-        this.data_devolucao = LocalDate.of(ano,mes,dia);
+    /**
+     * setter para data de devolucao
+     * @param devolvendo data de devolucao
+     */
+    public void setData_devolucao(LocalDate devolvendo) {
+        this.data_devolucao = devolvendo;
     }
 
+    /**
+     * Getter para data de devoluaco esperada
+     * @return retorna a data de devolucao calculada com base na data de emprestimo + 7
+     */
     public LocalDate getData_devolucao_esperada() {
         return data_devolucao_esperada;
     }
 
+    /**
+     * setter data devolucao esperada
+     * @param data_emprestimo data do emprestimo
+     * calcula a data somando + 7
+     */
     public void setData_devolucao_esperada(LocalDate data_emprestimo) {
         this.data_devolucao_esperada = data_emprestimo.plusDays(7);
     }
 
+    /**
+     * getter para conseguir o id do emprestimo
+     * @return retorna o id do emprestimo
+     */
     public int getId_emprestimo() {
         return id_emprestimo;
     }
 
+    /**
+     * setter para o id do emprestimo
+     * @param id_emprestimo coloca o id do emprestimo
+     */
     public void setId_emprestimo(int id_emprestimo) {
         this.id_emprestimo = id_emprestimo;
     }
 
+    /**
+     * getter para o status do emprestimo
+     * @return retorna o status do emprestimo
+     */
     public int getStatus_emprestimo() { //ok??
         return status_emprestimo;
     }
 
+    /**
+     * setter para o status do emprestimos
+     * @param status_emprestimo coloca o status do emprestimo
+     */
     public void setStatus_emprestimo(int status_emprestimo) {
         this.status_emprestimo = status_emprestimo;
     }
 
+    /**
+     * getter para o usuario que fez determinado empresitmo
+     * @return retorna o usuario do emprestimo
+     */
     public Usuario getUsuario() {
         return usuario;
     }
 
+    /**
+     * setter para o usuario do emprestimo
+     * @param usuario usuario que fez o emprestimo
+     */
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 
+    /**
+     * getter para o livro emprestado
+     * @return retorna o livro emprestado
+     */
     public Livro getLivro() {
         return livro;
     }
 
+    /**
+     * setter para o livro emprestado
+     * @param livro livro que foi emprestado
+     */
     public void setLivro(Livro livro) {
         this.livro = livro;
     }
 
+    /**
+     * quantidade de renovacao de um dado emprestimo
+     * @return retorna a quantidade de renovacao
+     */
     public int getQnt_emprestimo() {
         return qnt_renovacao;
     }
 
+    /**
+     * setter para quantidade de renovacao
+     */
     public void setQnt_emprestimo() {
         this.qnt_renovacao++;
     }
 
+    /**
+     * método equals, estabelece o que faz um objeto ser ''igual'' a outro
+     * @param o objeto generico a ser comparado
+     * @return uma lista de comparacoes, se todas forem verdadeiras, com base nas condicoes, o objeto é ''igual''
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -262,11 +329,19 @@ public class Emprestimo {
         return Objects.equals(getStatus_emprestimo(), emprestimo.getStatus_emprestimo()) && Objects.equals(getData_emprestimo(), emprestimo.getData_emprestimo()) && Objects.equals(getData_devolucao_esperada(), emprestimo.getData_devolucao_esperada()) && Objects.equals(getUsuario(), emprestimo.getUsuario()) && Objects.equals(getLivro(), emprestimo.getLivro());
     }
 
+    /**
+     * hash code para o emprestimo
+     * @return valor inteiro que é codigo hash do objeto
+     */
     @Override
     public int hashCode() {
         return Objects.hash(data_emprestimo, data_devolucao, data_devolucao_esperada, id_emprestimo, status_emprestimo, usuario, livro, qnt_renovacao);
     }
 
+    /**
+     * método to string para o emprestimo
+     * @return retorno dos atributos para facilitar a identificaco
+     */
     @Override
     public String toString() {
         return "Emprestimo{" +
