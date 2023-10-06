@@ -1,10 +1,13 @@
 package org.biblioteca.dao.Usuario;
 
 
+import org.biblioteca.Model.Emprestimo;
 import org.biblioteca.Model.Usuario;
+import org.biblioteca.dao.DAO;
 import org.biblioteca.excepctions.UsuarioException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -12,17 +15,29 @@ import java.util.List;
  */
 public class UsuarioDAOLista implements UsuarioDAO {
 
+    /**
+     * Lista de Usuarios, vai guardar todos os Usuarios ja adicionados ao sistema, em uma lista
+     */
     private List<Usuario> lista;
 
+    /**
+     * variável que guardará o próximo ID a ser utilizado, tipo um contador.
+     */
     private int proximoID;
 
+    /**
+     * Construtor para classe, quando iniciado o singleton, é criado uma nova lista e zerado o id para contagem
+     */
     public UsuarioDAOLista() {
         this.lista = new ArrayList<>();
         this.proximoID = 0;
     }
 
+    /**
+     * método para contagem dos id's
+     * @return retorna o proximo id a ser usado
+     */
     private int getProximoID(){
-        System.out.println(this.proximoID);
         return this.proximoID++;
 
 
@@ -105,6 +120,26 @@ public class UsuarioDAOLista implements UsuarioDAO {
             }
         }
         throw new UsuarioException(UsuarioException.FIND,id);
+
+    }
+
+
+    /**
+     * Método responsável por pegar todos os empréstimos ja feito por uma pessoa
+     * @param id o id do usuário que irá pegar o historico
+     * @return retorna uma lista com todos emprestimos feito por aquele usuário
+     * @throws Exception lança uma exceção se não encontrar o usuário
+     */
+
+    public List<Emprestimo> getUsuarioEmprestimos(int id) throws Exception {
+
+        //if(!DAO.getUsuarioDAO().findById(id).getHistorico_livro().isEmpty())
+        if(!DAO.getUsuarioDAO().findById(id).getHistorico_livro().isEmpty()){
+            //return DAO.getUsuarioDAO().findById(id).getHistorico_livro();
+            return DAO.getUsuarioDAO().findById(id).getHistorico_livro();
+        }else{
+            return Collections.emptyList();
+        }
 
     }
 }
