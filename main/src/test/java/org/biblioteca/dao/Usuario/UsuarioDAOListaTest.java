@@ -194,6 +194,7 @@ class UsuarioDAOListaTest {
         emp_6.Realizar_empresitmo(emp_6.getData_emprestimo());
 
 
+
         assertEquals(3, DAO.getUsuarioDAO().getUsuarioEmprestimos(3).size());
 
 

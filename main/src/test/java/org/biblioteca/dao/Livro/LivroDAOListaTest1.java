@@ -4,8 +4,6 @@ import org.biblioteca.Model.Emprestimo;
 import org.biblioteca.Model.Livro;
 import org.biblioteca.Model.Usuario;
 import org.biblioteca.dao.DAO;
-import org.biblioteca.excepctions.EmprestimoException;
-import org.biblioteca.excepctions.LivroException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +11,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Classe de teste para testar a classe LivroDAOLista
@@ -113,6 +111,7 @@ class LivroDAOListaTest1 {
      */
     @Test
     void findMany() {
+
         assertEquals(10,DAO.getLivroDAO().findMany().size());
     }
 

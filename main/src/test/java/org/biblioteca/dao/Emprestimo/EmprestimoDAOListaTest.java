@@ -44,6 +44,7 @@ class EmprestimoDAOListaTest {
     @BeforeEach
     void setUp() throws LivroException, EmprestimoException {
 
+
         /**
          * criação dos objetos usuários e criação deles na lista DAO, é retornado para os objetos declarados anteriormente
          */
@@ -73,9 +74,11 @@ class EmprestimoDAOListaTest {
      */
     @AfterEach
     void tearDown() {
+
         DAO.getUsuarioDAO().deleteMany();
         DAO.getLivroDAO().deleteMany();
         DAO.getEmprestimoDAO().deleteMany();
+
     }
 
     /**
@@ -84,11 +87,12 @@ class EmprestimoDAOListaTest {
      * @throws EmprestimoException pode lançar uma exceção do tipo empréstimo
      */
     @Test
-    void create() throws LivroException, EmprestimoException {
-        Emprestimo esperado = new Emprestimo(junior, fome,LocalDate.of(2023,10,1),LocalDate.of(2023,10,8));
+    void create() throws LivroException, EmprestimoException {//OLHAR O EQUALS...
+        Emprestimo esperado = new Emprestimo(junior, fome,LocalDate.of(2023,10,1),LocalDate.of(2023,10,8),3);
         Emprestimo atual = DAO.getEmprestimoDAO().create(new Emprestimo(junior,fome, LocalDate.of(2023,10,1),LocalDate.of(2023,10,8)));
 
         assertEquals(esperado,atual);
+
     }
 
     /**
@@ -119,7 +123,9 @@ class EmprestimoDAOListaTest {
     @Test
     void update() throws Exception{
         emp2.setData_emprestimo(LocalDate.of(2023,12,30));
+
         Emprestimo atual = DAO.getEmprestimoDAO().update(emp2);
+
         assertEquals(emp2,atual);
     }
 
