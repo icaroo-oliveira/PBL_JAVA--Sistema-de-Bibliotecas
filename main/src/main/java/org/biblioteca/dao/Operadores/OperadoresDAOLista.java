@@ -1,8 +1,10 @@
 package org.biblioteca.dao.Operadores;
 
 import org.biblioteca.Model.Operadores;
+import org.biblioteca.dao.arquivos.arquivos_manipulacao;
 import org.biblioteca.excepctions.OperadoresException;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,12 +23,32 @@ public class OperadoresDAOLista implements OperadoresDAO{
      */
     private int proximoID;
 
+
     /**
-     * Construtor para classe, quando iniciado o singleton, é criado uma nova lista e zerado o id para contagem
+     * instanciacao da classe arquivos_manipulacao para o arquivo dos operadores
      */
-    public OperadoresDAOLista() {
-        this.lista = new ArrayList<>();
-        this.proximoID = 0;
+    private final arquivos_manipulacao<Operadores> arquivo_operadores=new arquivos_manipulacao<Operadores>();
+
+
+    /**
+     * Construtor para classe, quando iniciado o singleton, é criado uma nova lista, um arquivo e é zerado o id para contagem
+     * Se ja existir o arquivo, abre e carrega os conteudo + ultimo id usado
+     */
+    public OperadoresDAOLista() throws IOException {
+
+        List<Operadores> l = new ArrayList<>();
+
+        this.lista=arquivo_operadores.Carregando("arquivo2.dat",l);
+
+
+        if(!this.lista.isEmpty()){
+            Operadores ultimooperador = lista.get(lista.size() - 1);
+            this.proximoID=ultimooperador.getId()+1;
+
+        }else{
+            this.proximoID=0;
+        }
+
     }
 
     /**
@@ -38,82 +60,120 @@ public class OperadoresDAOLista implements OperadoresDAO{
     }
 
     /**
-     * Método para criar um operador na lista
+     * Método para criar um operador na lista/arquivo
      * @param obj objeto ja instanciado que será criado
      * @return retorna o mesmo objeto
      */
     @Override
     public Operadores create(Operadores obj) {
         obj.setId(this.getProximoID());
-        lista.add(obj);
+
+
+        List<Operadores> l = new ArrayList<>();
+
+        this.lista=arquivo_operadores.Carregando("arquivo2.dat",l);
+
+
+        this.lista.add(obj);
+        arquivo_operadores.Salvando("arquivo2.dat",this.lista);
+
         return obj;
     }
 
     /**
-     *  método para deletar um operador da lista
+     *  método para deletar um operador da lista/arquivo
      *  @param obj operador a ser deletado
      *  @throws OperadoresException lança uma exceção se esse operador não existir na lista
      */
     @Override
     public void delete(Operadores obj) throws OperadoresException {
+        List<Operadores> l = new ArrayList<>();
+
+        this.lista=arquivo_operadores.Carregando("arquivo2.dat",l);
+
+
         boolean remover = this.lista.remove(obj);
         if(!remover){
             throw new OperadoresException(OperadoresException.DELETE,obj);
-        }
+        }else{
+            arquivo_operadores.Salvando("arquivo2.dat",this.lista);
 
+        }
     }
 
     /**
-     * método para resetar a lista e a contagem de ID
+     * método para resetar a lista(e arquivo) e a contagem de ID
      */
     @Override
     public void deleteMany() {
         this.lista = new ArrayList<>();
         this.proximoID = 0;
 
+        arquivo_operadores.Salvando("arquivo2.dat",this.lista);
+
+
     }
 
     /**
-     * Método para atualizar um operador que ja existe
+     * Método para atualizar um operador que ja existe na lista/arquivo
      * @param obj operador a ser atualizado
      * @return retorna o operador
      * @throws OperadoresException lança uma exceção se esse operador não existir
      */
     @Override
     public Operadores update(Operadores obj) throws OperadoresException {
+
+        List<Operadores> l = new ArrayList<>();
+
+        this.lista=arquivo_operadores.Carregando("arquivo2.dat",l);
+
         int index = this.lista.indexOf(obj);
-        if(index ==-1) {
+
+        if (index == -1) {
+
             throw new OperadoresException(OperadoresException.UPDATE, obj);
-        }else{
-            this.lista.set(index,obj);
-            return obj;
+        } else {
+            this.lista.set(index, obj);
+            arquivo_operadores.Salvando("arquivo2.dat",this.lista);
         }
+
+        return obj;
 
     }
 
     /**
-     * Método para encontrar todos os operadores
+     * Método para encontrar todos os operadores no arquivo/lista
      * @return retorna uma lista com todos os operadores
      */
     @Override
     public List<Operadores> findMany() {
+        List<Operadores> l = new ArrayList<>();
+
+        this.lista=arquivo_operadores.Carregando("arquivo2.dat",l);
+
         return this.lista;
     }
 
     /**
-     * Método para encontrar operadores pelo id
+     * Método para encontrar operadores pelo id na lista/arquivo
      * @param id id do operador procurado
      * @return retorna o operador
      * @throws OperadoresException lança uma exxceção se o operador não foi encontrado
      */
     @Override
     public Operadores findById(int id) throws OperadoresException{
+
+        List<Operadores> l = new ArrayList<>();
+
+        this.lista=arquivo_operadores.Carregando("arquivo2.dat",l);
+
+
+
         for(Operadores operador:this.lista){
             if(operador.getId()==id){
                 return operador;
             }
         }
         throw new OperadoresException(OperadoresException.FIND,id);
-
-    }
+}
 }
