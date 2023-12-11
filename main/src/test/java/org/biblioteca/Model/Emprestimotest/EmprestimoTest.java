@@ -1,19 +1,18 @@
 package org.biblioteca.Model.Emprestimotest;
 
 import org.biblioteca.Model.Emprestimo;
-import org.biblioteca.Model.*;
+import org.biblioteca.Model.Livro;
+import org.biblioteca.Model.Usuario;
 import org.biblioteca.dao.DAO;
 import org.biblioteca.excepctions.EmprestimoException;
-import org.biblioteca.excepctions.LivroException;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * classe para testar a classe Emprestimo
@@ -108,8 +107,12 @@ class EmprestimoTest {
             Emprestimo emp_44 = new Emprestimo(felipe,Os_tres,LocalDate.of(2023,10,5),LocalDate.of(2023,10,11));
             Emprestimo emp_33 = new Emprestimo(felipe,sidarta,LocalDate.of(2023,10,5),LocalDate.of(2023,10,11));
 
+            emp_11.Realizar_empresitmo(emp_11.getData_emprestimo());
+            emp_22.Realizar_empresitmo(emp_22.getData_emprestimo());
+            emp_33.Realizar_empresitmo(emp_33.getData_emprestimo());
+            emp_44.Realizar_empresitmo(emp_44.getData_emprestimo());
         }catch (EmprestimoException e){
-            System.out.println(e.getMessage());
+
             assertEquals(EmprestimoException.CREATE,e.getMessage());
         }
     }
@@ -230,23 +233,23 @@ class EmprestimoTest {
             //criando emprestimos
             emp_1 = new Emprestimo(felipe,demian,LocalDate.of(2023,10,1),LocalDate.of(2023,10,8));
             emp_1.Realizar_empresitmo(emp_1.getData_emprestimo());
-            DAO.getEmprestimoDAO().create(emp_1);
+            //DAO.getEmprestimoDAO().create(emp_1);
 
             //criando novo emprestimo
             emp_2 = new Emprestimo(felipe,fome,LocalDate.of(2023,10,6),LocalDate.of(2023,10,13));
             emp_2.Realizar_empresitmo(emp_2.getData_emprestimo());
-            DAO.getEmprestimoDAO().create(emp_2);
+            //DAO.getEmprestimoDAO().create(emp_2);
 
             //devolvendo o livro muito tarde...
             emp_1.Devolucao(LocalDate.of(2023,10,11));
 
 
-
             //tentando renovar o segundo emprestimo enquanto ta multado...
             emp_2.Renovar_emprestimo(LocalDate.of(2023,10,12),LocalDate.of(2023,10,19));
 
-            System.out.println(emp_2.getUsuario().getMulta());
+
         }catch (EmprestimoException e){
+
             assertEquals(EmprestimoException.UPDATE,e.getMessage());
         }
     }
