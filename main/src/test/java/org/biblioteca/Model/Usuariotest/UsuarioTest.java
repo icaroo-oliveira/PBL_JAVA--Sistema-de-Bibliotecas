@@ -4,13 +4,12 @@ import org.biblioteca.Model.Emprestimo;
 import org.biblioteca.Model.Livro;
 import org.biblioteca.Model.Usuario;
 import org.biblioteca.dao.DAO;
-import org.biblioteca.excepctions.EmprestimoException;
-import org.biblioteca.excepctions.LivroException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -28,10 +27,13 @@ class UsuarioTest {
      */
     @BeforeEach
     void setUp() {
-        robson = new Usuario("Robson","parque ipe","7544453216",0);
-        marcela= new Usuario("Marcela","tomba","7544453566",0);
-        janaina = new Usuario("Janaina","parque ipe","7584453216",0);
-        petra= new Usuario("Petra","feira 10","759553566",0);
+
+
+        robson = DAO.getUsuarioDAO().create(new Usuario("Robson","parque ipe","7544453216",0));
+        marcela = DAO.getUsuarioDAO().create(new Usuario("Marcela","tomba","7544453566",0));
+        janaina = DAO.getUsuarioDAO().create(new Usuario("Janaina","parque ipe","7584453216",0));
+        petra = DAO.getUsuarioDAO().create(new Usuario("Petra","feira 10","759553566",0));
+
 
         fome = DAO.getLivroDAO().create(new Livro("Fome","Knut Hamsun",123));
         demian = DAO.getLivroDAO().create(new Livro("DEMIAN","Herman Hesse",124));
@@ -110,6 +112,7 @@ class UsuarioTest {
         e2 = new Emprestimo(robson,sidarta,LocalDate.of(2023,9,18),LocalDate.of(2023,9,25));
         e1.Realizar_empresitmo(e1.getData_emprestimo());
         e2.Realizar_empresitmo(e2.getData_emprestimo());
+
 
         //Agora ele vai devolver um dos livros e fazer o emprestimo de um novo
         e1.Devolucao(LocalDate.of(2023,9,21));
