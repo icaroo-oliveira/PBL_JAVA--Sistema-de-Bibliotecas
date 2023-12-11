@@ -5,7 +5,7 @@ import org.biblioteca.dao.DAO;
 import org.biblioteca.excepctions.*;
 
 
-
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Objects;
@@ -15,7 +15,7 @@ import java.util.Objects;
  * Classe Emprestimo é a classe responsável por manipular tudo relacionado ao empréstimo
  * multas,renovacoes de emprestimo, realizacao de emprestimo...
  */
-public class Emprestimo {
+public class Emprestimo implements Serializable {
 
     /**
      * Data da realização do empréstimo
@@ -78,6 +78,19 @@ public class Emprestimo {
     }
 
 
+    public Emprestimo(Usuario usuario, Livro livro,LocalDate emp_data,LocalDate emp_data_devolve,int id) throws EmprestimoException, LivroException {
+        this.data_emprestimo =emp_data;
+        this.data_devolucao = null;
+        this.data_devolucao_esperada=emp_data_devolve;
+        this.status_emprestimo =0;
+        this.usuario = usuario;
+        this.livro = livro;
+        this.qnt_renovacao=1;
+        setId_emprestimo(id);
+
+    }
+
+
     /**
      * Método responsável por calcular a multa, é chamado no momento da devolução
      * @param devolvendo data de devolução do livro, vai ser usado na comparação com a data de emprestimo
@@ -105,6 +118,7 @@ public class Emprestimo {
      */
     public void Realizar_empresitmo(LocalDate emp_data) throws Exception {
 
+
         if(getLivro().getDisponibilidade() && getUsuario().Status1(emp_data) && getLivro().getFila().isEmpty()){
 
             getLivro().setDisponibilidade(false);
@@ -114,6 +128,9 @@ public class Emprestimo {
             DAO.getEmprestimoDAO().create(this);
             DAO.getLivroDAO().update(getLivro());
 
+            DAO.getUsuarioDAO().update(getUsuario());//!NEW!
+
+
         }else if(getLivro().getDisponibilidade() && getUsuario().Status1(emp_data) && Objects.requireNonNull(getLivro().getFila().peek()).getId()==getUsuario().getId()){
             getLivro().setDisponibilidade(false);
             getLivro().setEmprestimo(this);
@@ -122,6 +139,7 @@ public class Emprestimo {
             DAO.getEmprestimoDAO().create(this);
             getLivro().getFila().poll();
             DAO.getLivroDAO().update(getLivro());
+            DAO.getUsuarioDAO().update(getUsuario());//!NEW!
         }
         else{
 
@@ -145,6 +163,9 @@ public class Emprestimo {
         getLivro().setDisponibilidade(true);
         getLivro().setEmprestimo(null);
         DAO.getLivroDAO().update(getLivro());
+
+        DAO.getEmprestimoDAO().update(this);
+        DAO.getUsuarioDAO().update(getUsuario());
     }
 
     /**
@@ -326,7 +347,8 @@ public class Emprestimo {
         if (this == o) return true;
         if (!(o instanceof Emprestimo)) return false;
         Emprestimo emprestimo = (Emprestimo) o;
-        return Objects.equals(getStatus_emprestimo(), emprestimo.getStatus_emprestimo()) && Objects.equals(getData_emprestimo(), emprestimo.getData_emprestimo()) && Objects.equals(getData_devolucao_esperada(), emprestimo.getData_devolucao_esperada()) && Objects.equals(getUsuario(), emprestimo.getUsuario()) && Objects.equals(getLivro(), emprestimo.getLivro());
+        //return Objects.equals(getStatus_emprestimo(), emprestimo.getStatus_emprestimo()) && Objects.equals(getData_emprestimo(), emprestimo.getData_emprestimo()) && Objects.equals(getData_devolucao_esperada(), emprestimo.getData_devolucao_esperada()) && Objects.equals(getUsuario(), emprestimo.getUsuario()) && Objects.equals(getLivro(), emprestimo.getLivro());
+        return Objects.equals(getId_emprestimo(),emprestimo.getId_emprestimo()) && Objects.equals(getUsuario(), emprestimo.getUsuario()) && Objects.equals(getLivro(), emprestimo.getLivro());
     }
 
     /**
