@@ -10,6 +10,8 @@ import org.biblioteca.dao.Operadores.OperadoresDAOLista;
 import org.biblioteca.dao.Usuario.UsuarioDAO;
 import org.biblioteca.dao.Usuario.UsuarioDAOLista;
 
+import java.io.IOException;
+
 
 /**
  * Classe DAO, aplicando padrão singleton para todos os DAO
@@ -48,7 +50,11 @@ public class DAO {
      */
     public static EmprestimoDAO getEmprestimoDAO() {
         if (EmprestimoDAO == null) {
-            EmprestimoDAO = new EmprestimoDAOLista();
+            try {
+                EmprestimoDAO = new EmprestimoDAOLista();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         return EmprestimoDAO;
     }
@@ -59,7 +65,11 @@ public class DAO {
      */
     public static OperadoresDAO getOperadoresDAO() {
         if (OperadoresDAO == null) {
-            OperadoresDAO = new OperadoresDAOLista();
+            try {
+                OperadoresDAO = new OperadoresDAOLista();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         return OperadoresDAO;
     }
@@ -70,7 +80,11 @@ public class DAO {
      */
     public static LivroDAO getLivroDAO() {
         if (LivroDAO == null) {
-            LivroDAO = new LivroDAOLista();
+            try {
+                LivroDAO = new LivroDAOLista();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         return LivroDAO;
     }
@@ -81,7 +95,11 @@ public class DAO {
      */
     public static UsuarioDAO getUsuarioDAO() {
         if (UsuarioDAO == null) {
-            UsuarioDAO = new UsuarioDAOLista();
+            try {
+                UsuarioDAO = new UsuarioDAOLista();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         return UsuarioDAO;
     }
