@@ -37,7 +37,9 @@ public class arquivos_manipulacao<T> {
         ObjectInputStream objectIn = null;
         try {
             objectIn = new ObjectInputStream(new FileInputStream(obj));
-            return (List<T>) objectIn.readObject();
+            List<T> listar = (List<T>) objectIn.readObject();
+            objectIn.close();
+            return listar;
 
         } catch (IOException | ClassNotFoundException e) {
             Salvando(obj,lista);
