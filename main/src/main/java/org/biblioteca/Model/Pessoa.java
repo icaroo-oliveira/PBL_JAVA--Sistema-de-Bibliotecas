@@ -1,9 +1,11 @@
 package org.biblioteca.Model;
 
+import java.io.Serializable;
+
 /**
  * Classe pai de uusuários e operadores, os atributos de nome,endereco etc sao herdados pelas classes filhas
  */
-public class Pessoa {
+public class Pessoa implements Serializable {
     /**
      * nome da pessoa
      */

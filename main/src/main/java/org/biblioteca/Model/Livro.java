@@ -1,21 +1,19 @@
 package org.biblioteca.Model;
 
 import org.biblioteca.dao.DAO;
-import org.biblioteca.excepctions.*;
+import org.biblioteca.excepctions.EmprestimoException;
+import org.biblioteca.excepctions.LivroException;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Queue;
-
-import org.biblioteca.Model.Usuario;
-
-
-import java.util.LinkedList;
 
 /**
  * Classe Livro, responsável por servir de criação dos livros
  */
-public class Livro {
+public class Livro implements Serializable {
     /**
      * titulo do livro
      */
