@@ -202,7 +202,9 @@ public class Usuario extends Pessoa {
 
         Usuario usuario = (Usuario) o;
 
-        return Objects.equals(getId(), usuario.getId()) && Objects.equals(getNome(), usuario.getNome()) && Objects.equals(getEndereco(), usuario.getEndereco()) && Objects.equals(getTelefone(), usuario.getTelefone());
+        return Objects.equals(getId(), usuario.getId());
+
+         //return Objects.equals(getId(), usuario.getId()) && Objects.equals(getNome(), usuario.getNome()) && Objects.equals(getEndereco(), usuario.getEndereco()) && Objects.equals(getTelefone(), usuario.getTelefone());
     }
 
 
