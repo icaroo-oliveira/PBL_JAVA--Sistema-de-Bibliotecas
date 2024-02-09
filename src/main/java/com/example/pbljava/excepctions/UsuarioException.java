@@ -1,6 +1,6 @@
 package com.example.pbljava.excepctions;
 
-import org.biblioteca.Model.Usuario;
+import com.example.pbljava.Model.Usuario;
 
 /**
  * classe que gerara mensagens de excecoes para os usuários

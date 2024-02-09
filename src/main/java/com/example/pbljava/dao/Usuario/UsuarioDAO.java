@@ -1,8 +1,8 @@
 package com.example.pbljava.dao.Usuario;
 
-import org.biblioteca.Model.Emprestimo;
-import org.biblioteca.Model.Usuario;
-import org.biblioteca.dao.CRUD;
+import com.example.pbljava.Model.Emprestimo;
+import com.example.pbljava.Model.Usuario;
+import com.example.pbljava.dao.CRUD;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.example.pbljava.excepctions;
 
-import org.biblioteca.Model.Operadores;
+import com.example.pbljava.Model.Operadores;
 
 /**
  * Classe que gerará mensagens de exceções para os operadores

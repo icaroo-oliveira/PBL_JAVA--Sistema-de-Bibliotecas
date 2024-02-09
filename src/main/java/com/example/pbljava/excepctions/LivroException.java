@@ -1,6 +1,6 @@
 package com.example.pbljava.excepctions;
 
-import org.biblioteca.Model.Livro;
+import com.example.pbljava.Model.Livro;
 
 /**
  * Classe que gerará mensagens de exceções para os livros

@@ -1,8 +1,8 @@
 package com.example.pbljava.Model;
 
-import org.biblioteca.dao.DAO;
+import com.example.pbljava.dao.DAO;
 
-import org.biblioteca.excepctions.*;
+import com.example.pbljava.excepctions.*;
 
 
 import java.io.Serializable;

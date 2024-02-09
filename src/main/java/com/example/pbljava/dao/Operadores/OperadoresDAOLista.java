@@ -1,8 +1,8 @@
 package com.example.pbljava.dao.Operadores;
 
-import org.biblioteca.Model.Operadores;
-import org.biblioteca.dao.arquivos.arquivos_manipulacao;
-import org.biblioteca.excepctions.OperadoresException;
+import com.example.pbljava.Model.Operadores;
+import com.example.pbljava.dao.arquivos.arquivos_manipulacao;
+import com.example.pbljava.excepctions.OperadoresException;
 
 import java.io.IOException;
 import java.util.ArrayList;

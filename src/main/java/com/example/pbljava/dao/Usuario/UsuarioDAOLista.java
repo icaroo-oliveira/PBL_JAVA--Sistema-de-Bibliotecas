@@ -1,11 +1,11 @@
 package com.example.pbljava.dao.Usuario;
 
 
-import org.biblioteca.Model.Emprestimo;
-import org.biblioteca.Model.Usuario;
-import org.biblioteca.dao.DAO;
-import org.biblioteca.dao.arquivos.arquivos_manipulacao;
-import org.biblioteca.excepctions.UsuarioException;
+import com.example.pbljava.Model.Emprestimo;
+import com.example.pbljava.Model.Usuario;
+import com.example.pbljava.dao.DAO;
+import com.example.pbljava.dao.arquivos.arquivos_manipulacao;
+import com.example.pbljava.excepctions.UsuarioException;
 
 import java.io.IOException;
 import java.util.ArrayList;

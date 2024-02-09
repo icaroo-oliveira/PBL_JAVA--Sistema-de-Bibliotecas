@@ -1,8 +1,8 @@
 package com.example.pbljava.dao.Livro;
 
-import org.biblioteca.Model.Emprestimo;
-import org.biblioteca.dao.CRUD;
-import org.biblioteca.Model.Livro;
+import com.example.pbljava.Model.Emprestimo;
+import com.example.pbljava.dao.CRUD;
+import com.example.pbljava.Model.Livro;
 
 import java.time.LocalDate;
 import java.util.List;

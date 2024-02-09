@@ -1,8 +1,10 @@
 package com.example.pbljava.dao.Emprestimo;
 
-import org.biblioteca.Model.Emprestimo;
-import org.biblioteca.dao.arquivos.arquivos_manipulacao;
-import org.biblioteca.excepctions.EmprestimoException;
+
+
+import com.example.pbljava.Model.Emprestimo;
+import com.example.pbljava.dao.arquivos.arquivos_manipulacao;
+import com.example.pbljava.excepctions.EmprestimoException;
 
 import java.io.IOException;
 import java.io.Serializable;

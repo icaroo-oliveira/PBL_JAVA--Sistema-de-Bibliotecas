@@ -1,14 +1,14 @@
 package com.example.pbljava.dao;
 
-import org.biblioteca.dao.Emprestimo.EmprestimoDAO;
-import org.biblioteca.dao.Emprestimo.EmprestimoDAOLista;
-import org.biblioteca.dao.Livro.LivroDAO;
-import org.biblioteca.dao.Livro.LivroDAOLista;
-import org.biblioteca.dao.Operadores.OperadoresDAO;
-import org.biblioteca.dao.Operadores.OperadoresDAOLista;
+import com.example.pbljava.dao.Emprestimo.EmprestimoDAO;
+import com.example.pbljava.dao.Emprestimo.EmprestimoDAOLista;
+import com.example.pbljava.dao.Livro.LivroDAO;
+import com.example.pbljava.dao.Livro.LivroDAOLista;
+import com.example.pbljava.dao.Operadores.OperadoresDAO;
+import com.example.pbljava.dao.Operadores.OperadoresDAOLista;
 
-import org.biblioteca.dao.Usuario.UsuarioDAO;
-import org.biblioteca.dao.Usuario.UsuarioDAOLista;
+import com.example.pbljava.dao.Usuario.UsuarioDAO;
+import com.example.pbljava.dao.Usuario.UsuarioDAOLista;
 
 import java.io.IOException;
 

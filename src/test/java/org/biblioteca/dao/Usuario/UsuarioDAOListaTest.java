@@ -1,10 +1,10 @@
 package org.biblioteca.dao.Usuario;
 
-import org.biblioteca.Model.Emprestimo;
-import org.biblioteca.Model.Livro;
-import org.biblioteca.Model.Usuario;
-import org.biblioteca.dao.DAO;
-import org.biblioteca.excepctions.UsuarioException;
+import com.example.pbljava.Model.Emprestimo;
+import com.example.pbljava.Model.Livro;
+import com.example.pbljava.Model.Usuario;
+import com.example.pbljava.dao.DAO;
+import com.example.pbljava.excepctions.UsuarioException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

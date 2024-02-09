@@ -1,6 +1,6 @@
 package com.example.pbljava.excepctions;
 
-import org.biblioteca.Model.Emprestimo;
+import com.example.pbljava.Model.Emprestimo;
 
 /**
  * Classe que gerará mensagens de exceções para o emprestimo

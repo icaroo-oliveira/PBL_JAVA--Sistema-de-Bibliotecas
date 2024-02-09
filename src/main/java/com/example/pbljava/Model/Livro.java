@@ -1,8 +1,8 @@
 package com.example.pbljava.Model;
 
-import org.biblioteca.dao.DAO;
-import org.biblioteca.excepctions.EmprestimoException;
-import org.biblioteca.excepctions.LivroException;
+import com.example.pbljava.dao.DAO;
+import com.example.pbljava.excepctions.EmprestimoException;
+import com.example.pbljava.excepctions.LivroException;
 
 import java.io.Serializable;
 import java.time.LocalDate;

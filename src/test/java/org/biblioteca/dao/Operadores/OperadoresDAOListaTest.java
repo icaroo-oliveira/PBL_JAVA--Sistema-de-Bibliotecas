@@ -1,9 +1,9 @@
 package org.biblioteca.dao.Operadores;
 
-import org.biblioteca.Model.Emprestimo;
-import org.biblioteca.Model.Operadores;
-import org.biblioteca.Model.Usuario;
-import org.biblioteca.dao.DAO;
+import com.example.pbljava.Model.Emprestimo;
+import com.example.pbljava.Model.Operadores;
+import com.example.pbljava.Model.Usuario;
+import com.example.pbljava.dao.DAO;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
