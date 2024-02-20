@@ -17,7 +17,17 @@ public class HelloApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource("/com/example/pbljava/hello-view.fxml"));
 
+        //novo
+        stage.setMinWidth(1000);
+        stage.setMaxWidth(1200);
+        stage.setMinHeight(800);
+        stage.setMaxHeight(1000);
 
+        stage.setWidth(1200);
+        stage.setHeight(800);
+        //novo
+
+        stage.centerOnScreen();
         Parent parent = fxmlLoader.load();
 
         Scene scene = new Scene(parent);

@@ -9,4 +9,6 @@ module com.example.pbljava {
     exports com.example.pbljava.controller;
     opens com.example.pbljava.controller to javafx.fxml,javafx.graphics;
     opens com.example.pbljava.Model;
+    exports com.example.pbljava.components;
+    opens com.example.pbljava.components to javafx.fxml, javafx.graphics;
 }
