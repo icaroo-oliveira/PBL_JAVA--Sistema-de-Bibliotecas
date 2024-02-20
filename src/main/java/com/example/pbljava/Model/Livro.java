@@ -29,7 +29,7 @@ public class Livro implements Serializable {
     /**
      * ano de publicacao do livro
      */
-    private LocalDate ano_publicacao;
+    private int ano_publicacao;
     /**
      * categoria do livro
      */
@@ -105,6 +105,17 @@ public class Livro implements Serializable {
         this.popularity=0;
         this.categoria=categoria;
         this.id=id;
+    }
+
+    public Livro(String autor, int isbn, String localizao, int anopublicacao, String titulo, String categoria) {
+        this.localizao=localizao;
+        this.autor = autor;
+        this.ISBN = isbn;
+        this.disponibilidade=true;
+        this.popularity=0;
+        this.categoria=categoria;
+        this.titulo=titulo;
+        this.ano_publicacao=anopublicacao;
     }
 
     /**
@@ -238,7 +249,7 @@ public class Livro implements Serializable {
      * getter para o ano de publicacao
      * @return retorna o ano de publicacao
      */
-    public LocalDate getAno_publicacao() {
+    public int getAno_publicacao() {
         return ano_publicacao;
     }
 
@@ -246,7 +257,7 @@ public class Livro implements Serializable {
      * setter para o ano de publicacoo
      * @param ano_publicacao ano de publicao do livro
      */
-    public void setAno_publicacao(LocalDate ano_publicacao) {
+    public void setAno_publicacao(int ano_publicacao) {
         this.ano_publicacao = ano_publicacao;
     }
 

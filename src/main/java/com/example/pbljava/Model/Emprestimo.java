@@ -78,6 +78,26 @@ public class Emprestimo implements Serializable {
     }
 
 
+
+    public Emprestimo(Usuario usuario, Livro livro) throws Exception {
+        setData_emprestimo(LocalDate.now());
+        this.data_devolucao = null;
+        this.status_emprestimo =0;
+        this.usuario = usuario;
+        this.livro = livro;
+        this.qnt_renovacao=1;
+
+        Realizar_empresitmo(LocalDate.now());
+
+
+    }
+
+
+
+
+
+
+
     public Emprestimo(Usuario usuario, Livro livro,LocalDate emp_data,LocalDate emp_data_devolve,int id) throws EmprestimoException, LivroException {
         this.data_emprestimo =emp_data;
         this.data_devolucao = null;
@@ -118,7 +138,6 @@ public class Emprestimo implements Serializable {
      */
     public void Realizar_empresitmo(LocalDate emp_data) throws Exception {
 
-
         if(getLivro().getDisponibilidade() && getUsuario().Status1(emp_data) && getLivro().getFila().isEmpty()){
 
             getLivro().setDisponibilidade(false);
@@ -126,7 +145,14 @@ public class Emprestimo implements Serializable {
             getUsuario().setQntd_emprestimo();
             getLivro().setEmprestimo(this);
             DAO.getEmprestimoDAO().create(this);
+
+            //novo//
+
+            getLivro().setPopularity();
+
+            //novo//
             DAO.getLivroDAO().update(getLivro());
+
 
             DAO.getUsuarioDAO().update(getUsuario());//!NEW!
 
@@ -138,8 +164,13 @@ public class Emprestimo implements Serializable {
             getUsuario().setQntd_emprestimo();
             DAO.getEmprestimoDAO().create(this);
             getLivro().getFila().poll();
+            //novo
+            getLivro().setPopularity();
+            //novo
+
             DAO.getLivroDAO().update(getLivro());
             DAO.getUsuarioDAO().update(getUsuario());//!NEW!
+
         }
         else{
 
