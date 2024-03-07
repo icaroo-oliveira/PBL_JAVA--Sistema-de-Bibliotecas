@@ -29,6 +29,11 @@ public class Visitante_pesquisa {
 
 
     @FXML
+    private Label Labelerror;
+    @FXML
+    private Button Homebutton;
+
+    @FXML
     private Button Reservarr;
 
     private Operadormain operadorr;
@@ -105,7 +110,7 @@ public class Visitante_pesquisa {
 
             if(this.choiceBox.getValue().equals("Autor")){
                 List<Livro> lista_autor = DAO.getLivroDAO().pesquisarPorAutor(autortb.getText());
-                System.out.println(lista_autor.size());
+                //System.out.println(lista_autor.size());
                 if (!lista_autor.isEmpty()) {
                     for(Livro livro: lista_autor){
                         this.Livros.add(livro);
@@ -113,7 +118,7 @@ public class Visitante_pesquisa {
                 }
             }else if(this.choiceBox.getValue().equals("Título")){
                 List<Livro> lista_autor = DAO.getLivroDAO().pesquisarPorTitulo(autortb.getText());
-                System.out.println(lista_autor.size());
+                //System.out.println(lista_autor.size());
                 if (!lista_autor.isEmpty()) {
                     for(Livro livro: lista_autor){
                         this.Livros.add(livro);
@@ -121,7 +126,7 @@ public class Visitante_pesquisa {
                 }
             }else if (this.choiceBox.getValue().equals("ISBN")){
                 List<Livro> lista_autor = DAO.getLivroDAO().pesquisarPorISBN(Integer.parseInt(autortb.getText()));
-                System.out.println(lista_autor.size());
+                //System.out.println(lista_autor.size());
                 if (!lista_autor.isEmpty()) {
                     for(Livro livro: lista_autor){
                         this.Livros.add(livro);
@@ -144,13 +149,50 @@ public class Visitante_pesquisa {
             Livro livro = this.tabelageral.getSelectionModel().getSelectedItem();
             try {
                 livro.Reservar_livro(ControladorDados.getInstancia().getUsuario(),LocalDate.now());
-                System.out.println(livro.getFila().size());
+                //System.out.println(livro.getFila().size());
                 this.Livros.set(i,livro);
 
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                this.Labelerror.setText("ERRO na renovação. \n" +
+                        "Verifique:\n" +
+                        "1- Se você está Multado\n" +
+                        "2- Se você está Bloqueado\n" +
+                        "3- Se o está Livro disponível\n");
             }
 
+        }
+
+    }
+
+    @FXML
+    void HomebuttonAction(ActionEvent event) {
+
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/pbljava/hello-view.fxml"));
+
+            Parent parent = fxmlLoader.load();
+
+            Scene scene = new Scene(parent);
+
+            Stage stage = (Stage) Homebutton.getScene().getWindow();
+
+            //novo
+            stage.setMinWidth(1000);
+            stage.setMaxWidth(1200);
+            stage.setMinHeight(800);
+            stage.setMaxHeight(1000);
+
+            stage.setWidth(1200);
+            stage.setHeight(800);
+
+            stage.centerOnScreen();
+
+            stage.setTitle("HOME");
+            stage.setScene(scene);
+            stage.sizeToScene();
+            stage.show();
+        }catch(Exception e){
+            //System.out.println("algo deu errado(?)");
         }
 
     }
