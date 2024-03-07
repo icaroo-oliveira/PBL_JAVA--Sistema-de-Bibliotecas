@@ -31,11 +31,11 @@
 10. **Controle de operadores do sistema:** O sistema deve permitir o cadastro de novos operadores, com informações como nome, número de identificação, cargo e senha de acesso. Os cargos podem ser do tipo Administrador ou Bibliotecário. O Bibliotecário só terá acesso às funcionalidades #1, #2 e #3.
 
 ### Estrutura de diretórios para desenvolvimento
-- [model](main/src/main/java/org/biblioteca/Model): modelos de dados do sistema
-- [dao](main/src/main/java/org/biblioteca/dao): implementação do padrão DAO (Data Access Object)
-- [exceptions](main/src/main/java/org/biblioteca/excepctions): modelos de exceções
-- *controller (em breve...):*
-- *view (em breve...):*
+- [model](src/main/java/com/example/pbljava/Model): modelos de dados do sistema
+- [dao](src/main/java/com/example/pbljava/dao): implementação do padrão DAO (Data Access Object)
+- [exceptions](src/main/java/com/example/pbljava/excepctions): modelos de exceções
+- [controller](src/main/java/com/example/pbljava/controller)
+- [view](src/main/resources/com/example/pbljava)
 ## Desenvolvimento
 
 ### Instalação
@@ -43,7 +43,7 @@
 Faça o download do repositório
 
 ```
-git clone https://github.com/icaroo-oliveira/pbl1.git
+git clone https://github.com/icaroo-oliveira/PBL_JAVA--Sistema-de-Bibliotecas.git
 ```
 
 E abra o projeto no IntelliJ IDEA e aguarde o download das dependências.
