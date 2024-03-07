@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -15,10 +16,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 import java.util.Objects;
 
 public class Operadormain {
+
+    @FXML
+    private Button Homebutton;
 
     @FXML
     private BorderPane Painelprincipaloperador;
@@ -76,7 +81,7 @@ public class Operadormain {
 
     @FXML
     void pagina0Action(ActionEvent event) {
-        System.out.println("melancia");
+        //System.out.println("melancia");
         //ControladorDados controla = ControladorDados.getInstancia();
         //controla.setOperadorr(this);
         getControlador().setOperadorr(this);
@@ -86,7 +91,7 @@ public class Operadormain {
 
     @FXML
     void pagina1Action(ActionEvent event) {
-        System.out.println("melancia");
+        //System.out.println("melancia");
 
         //ControladorDados controla = ControladorDados.getInstancia();
         //controla.setOperadorr(this);
@@ -99,7 +104,7 @@ public class Operadormain {
 
     @FXML
     void pagina2Action(ActionEvent event) {
-        System.out.println("melancia");
+        //System.out.println("melancia");
         openPage("/com/example/pbljava/page2.fxml");//livros
 
     }
@@ -142,6 +147,39 @@ public class Operadormain {
 
     public BorderPane getP(){
         return this.Painelprincipaloperador;
+    }
+
+
+    @FXML
+    void HomebuttonAction(ActionEvent event) {
+
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/pbljava/hello-view.fxml"));
+
+            Parent parent = fxmlLoader.load();
+
+            Scene scene = new Scene(parent);
+
+            Stage stage = (Stage) Homebutton.getScene().getWindow();
+
+            //novo
+            stage.setMinWidth(1000);
+            stage.setMaxWidth(1200);
+            stage.setMinHeight(800);
+            stage.setMaxHeight(1000);
+
+            stage.setWidth(1200);
+            stage.setHeight(800);
+
+            stage.centerOnScreen();
+
+            stage.setTitle("HOME");
+            stage.setScene(scene);
+            stage.sizeToScene();
+            stage.show();
+        }catch(Exception e){
+            //System.out.println("algo deu errado(?)");
+        }
     }
 
 
