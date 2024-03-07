@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="Painelprincipaloperador" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pbljava.controller.Operadormain">
+<BorderPane fx:id="Painelprincipaloperador" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pbljava.controller.Operadormain">
     <left>
         <VBox alignment="CENTER">
             <children>
@@ -38,23 +38,28 @@
                   <Font size="20.0" />
                </font>
             </Label>
+            <Button fx:id="Homebutton" mnemonicParsing="false" onAction="#HomebuttonAction" text="HOME">
+               <HBox.margin>
+                  <Insets left="884.0" />
+               </HBox.margin>
+            </Button>
          </children>
       </HBox>
    </top>
    <right>
       <VBox alignment="CENTER">
          <children>
-            <Button fx:id="pagina3" mnemonicParsing="false" onAction="#pagina3Action" prefHeight="150.0" prefWidth="180.0" text="Criar. editar ou excluir usuários">
+            <Button fx:id="pagina3" mnemonicParsing="false" onAction="#pagina3Action" prefHeight="150.0" prefWidth="200.0" text="Criar. editar ou excluir usuários">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
             </Button>
-            <Button fx:id="pagina4" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#pagina4Action" prefHeight="150.0" prefWidth="180.0" text="Pagina 4">
+            <Button fx:id="pagina4" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#pagina4Action" prefHeight="150.0" prefWidth="200.0" text="Criar, editar ou excluir operadores">
                <VBox.margin>
                   <Insets top="25.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="pagina5" layoutX="10.0" layoutY="58.0" mnemonicParsing="false" onAction="#pagina5Action" prefHeight="150.0" prefWidth="180.0" text="Pagina 5">
+            <Button fx:id="pagina5" layoutX="10.0" layoutY="58.0" mnemonicParsing="false" onAction="#pagina5Action" prefHeight="150.0" prefWidth="196.0" text="Relatorios">
                <VBox.margin>
                   <Insets top="25.0" />
                </VBox.margin>
@@ -63,6 +68,6 @@
       </VBox>
    </right>
    <bottom>
-      <HBox maxHeight="50.0" maxWidth="600.0" minHeight="50.0" minWidth="492.0" prefHeight="50.0" prefWidth="492.0" />
+      <HBox maxHeight="50.0" maxWidth="1255.0" minHeight="50.0" minWidth="492.0" prefHeight="50.0" prefWidth="1255.0" />
    </bottom>
 </BorderPane>

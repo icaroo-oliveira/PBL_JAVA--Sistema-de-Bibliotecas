@@ -12,16 +12,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pbljava.controller.Visitante_pesquisa">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1022.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.pbljava.controller.Visitante_pesquisa">
     <columnConstraints>
-        <ColumnConstraints hgrow="ALWAYS" maxWidth="301.5999755859375" minWidth="10.0" prefWidth="164.80002746582034" />
-        <ColumnConstraints hgrow="ALWAYS" maxWidth="507.19998474121087" minWidth="10.0" prefWidth="435.9999725341796" />
+        <ColumnConstraints hgrow="ALWAYS" maxWidth="301.5999755859375" minWidth="0.0" prefWidth="194.40000305175784" />
+        <ColumnConstraints hgrow="ALWAYS" maxWidth="922.3999908447264" minWidth="10.0" prefWidth="915.999996948242" />
     </columnConstraints>
     <rowConstraints>
         <RowConstraints vgrow="ALWAYS" />
     </rowConstraints>
     <children>
-        <TableView fx:id="tabelageral" prefHeight="400.0" prefWidth="479.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
+        <TableView fx:id="tabelageral" prefHeight="800.0" prefWidth="622.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
             <columnResizePolicy>
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
             </columnResizePolicy></TableView>
@@ -50,6 +50,12 @@
                 <TextField fx:id="autortb" promptText=" Digite o nome do autor" VBox.vgrow="ALWAYS" />
                 <Button fx:id="Autorbutton" mnemonicParsing="false" onAction="#AutorbuttonAction" text="Busque!" VBox.vgrow="ALWAYS" />
             <Button fx:id="Reservarr" mnemonicParsing="false" onAction="#ReservarrAction" text="Reservar" VBox.vgrow="ALWAYS" />
+            <Label fx:id="Labelerror" prefHeight="135.0" prefWidth="298.0" />
+            <Button fx:id="Homebutton" mnemonicParsing="false" onAction="#HomebuttonAction" prefWidth="52.0" text="HOME">
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
+            </Button>
             </children>
         </VBox>
     </children>
