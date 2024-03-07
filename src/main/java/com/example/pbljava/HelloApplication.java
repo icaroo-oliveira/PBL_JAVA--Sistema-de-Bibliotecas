@@ -32,7 +32,7 @@ public class HelloApplication extends Application {
 
         Scene scene = new Scene(parent);
 
-        stage.setTitle("Cena 1");
+        stage.setTitle("HOME");
         stage.setScene(scene);
         stage.show();
     }
