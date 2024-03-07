@@ -37,13 +37,13 @@ public class HelloController {
             Stage stage = (Stage) operadorButton.getScene().getWindow();
 
             //novo
-            stage.setMinWidth(1000);
+            /*stage.setMinWidth(1000);
             stage.setMaxWidth(1200);
             stage.setMinHeight(800);
             stage.setMaxHeight(1000);
-
-            stage.setWidth(1200);
-            stage.setHeight(800);
+*/
+            stage.setWidth(600);
+            stage.setHeight(400);
 
 
             stage.centerOnScreen();
@@ -52,11 +52,12 @@ public class HelloController {
 
 
 
-            stage.setTitle("Cena 1");
+            stage.setTitle("Operador-login");
             stage.setScene(scene);
+            stage.sizeToScene();
             stage.show();
         }catch(Exception e){
-            System.out.println("algo deu errado(?)");
+            //System.out.println("algo deu errado(?)");
         }
 
     }
@@ -77,13 +78,9 @@ public class HelloController {
             Stage stage = (Stage) visitanteButton.getScene().getWindow();
 
             //novo
-            stage.setMinWidth(1000);
-            stage.setMaxWidth(1200);
-            stage.setMinHeight(800);
-            stage.setMaxHeight(1000);
 
-            stage.setWidth(1200);
-            stage.setHeight(800);
+            stage.setWidth(600);
+            stage.setHeight(400);
 
             stage.centerOnScreen();
             //novo
@@ -91,11 +88,12 @@ public class HelloController {
 
 
 
-            stage.setTitle("Cena 1");
+            stage.setTitle("Usuario-login");
             stage.setScene(scene);
+            stage.sizeToScene();
             stage.show();
         }catch(Exception e){
-            System.out.println("algo deu errado(?)");
+            //System.out.println("algo deu errado(?)");
         }
 
     }
@@ -116,24 +114,24 @@ public class HelloController {
             Stage stage = (Stage) visitanteButton.getScene().getWindow();
 
             //novo
-            stage.setMinWidth(1000);
-            stage.setMaxWidth(1200);
-            stage.setMinHeight(800);
-            stage.setMaxHeight(1000);
 
-            stage.setWidth(1200);
-            stage.setHeight(800);
 
-            stage.centerOnScreen();
+//            stage.setWidth(1200);
+//            stage.setHeight(800);
+
+            //stage.centerOnScreen();
             //novo
 
-            stage.setTitle("Cena 1");
+            stage.setTitle("Visitante");
+            stage.centerOnScreen();
             stage.setScene(scene);
+            stage.sizeToScene();
+            stage.setWidth(1200);
+            stage.setHeight(800);
             stage.show();
         }catch(Exception e){
-            System.out.println("algo deu errado(?)");
+            //System.out.println("algo deu errado(?)");
         }
-
 
     }
 
