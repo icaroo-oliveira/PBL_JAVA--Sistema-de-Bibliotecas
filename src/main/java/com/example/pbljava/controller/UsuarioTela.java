@@ -1,15 +1,16 @@
 package com.example.pbljava.controller;
 
+import com.example.pbljava.components.ControladorDados;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -19,6 +20,14 @@ import java.util.Objects;
 public class UsuarioTela {
 
     @FXML
+    private Label nomeUsuario;
+
+    @FXML
+    private Label statususuario;
+
+    @FXML
+    private Button HomeButton;
+    @FXML
     private MenuButton Menubutton;
 
     @FXML
@@ -27,6 +36,18 @@ public class UsuarioTela {
     @FXML
     void initialize() {
 
+
+        this.nomeUsuario.setText(ControladorDados.getInstancia().getUsuario().getNome());
+
+        if(ControladorDados.getInstancia().getUsuario().getStatus()){
+            this.statususuario.setText("Disponível");
+        }else{
+            this.statususuario.setText("Bloqueado");
+
+        }
+
+
+        System.out.println(ControladorDados.getInstancia().getUsuario().getStatus());
         Menubutton.getItems().clear();
 
         MenuItem menuItem1 = new MenuItem("Pesquisar");
@@ -87,4 +108,33 @@ public class UsuarioTela {
 
     }
 
+
+    @FXML
+    void HomeButtonAction(ActionEvent event) {
+
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/pbljava/hello-view.fxml"));
+
+            Parent parent = fxmlLoader.load();
+
+            Scene scene = new Scene(parent);
+
+            Stage stage = (Stage) HomeButton.getScene().getWindow();
+
+            //novo
+
+            stage.setWidth(1200);
+            stage.setHeight(800);
+
+            stage.centerOnScreen();
+
+            stage.setTitle("Cena 1");
+            stage.setScene(scene);
+            stage.sizeToScene();
+            stage.show();
+        }catch(Exception e){
+            //System.out.println("algo deu errado(?)");
+        }
+
+    }
 }
