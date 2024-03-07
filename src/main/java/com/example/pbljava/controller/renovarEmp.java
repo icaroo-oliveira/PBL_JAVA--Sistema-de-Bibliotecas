@@ -15,6 +15,8 @@ import java.time.LocalDate;
 
 public class renovarEmp {
 
+    @FXML
+    private TextArea ERRORLABEL;
 
     @FXML
     private Button Renovar;
@@ -71,11 +73,13 @@ public class renovarEmp {
         if (i >= 0) {
             Emprestimo emprestimo = this.tabelageral.getSelectionModel().getSelectedItem();
             try {
-                emprestimo.Renovar_emprestimo(LocalDate.of(2024,2,22),LocalDate.of(2024,2,22));
+                emprestimo.Renovar_emprestimo(LocalDate.now(),LocalDate.now());
                 this.Emprestimo.set(i,emprestimo);
 
             } catch (Exception e) {
-                throw new RuntimeException(e);
+                this.ERRORLABEL.setText("Erro na renovação, verifique se\n você está multado,\n" +
+                        " bloqueado ou ja passou \n do limite de renovação");
+
             }
 
         }

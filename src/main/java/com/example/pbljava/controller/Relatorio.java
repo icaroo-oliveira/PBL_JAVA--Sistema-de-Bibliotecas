@@ -62,7 +62,7 @@ public class Relatorio {
 
             if(this.choiceBox.getValue().equals("Emprestados")){
                 List<Livro> lista_autor = DAO.getLivroDAO().getLista_emprestados();
-                System.out.println(lista_autor.size());
+                //System.out.println(lista_autor.size());
                 if (!lista_autor.isEmpty()) {
                     for(Livro livro: lista_autor){
                         this.Livros.add(livro);
@@ -70,7 +70,7 @@ public class Relatorio {
                 }
             }else if(this.choiceBox.getValue().equals("Reservados")){
                 List<Livro> lista_autor = DAO.getLivroDAO().getLista_reservados();
-                System.out.println(lista_autor.size());
+                //System.out.println(lista_autor.size());
                 if (!lista_autor.isEmpty()) {
                     for(Livro livro: lista_autor){
                         this.Livros.add(livro);
@@ -78,7 +78,7 @@ public class Relatorio {
                 }
             }else if (this.choiceBox.getValue().equals("Atrasados")){
                 List<Livro> lista_autor = DAO.getLivroDAO().getLista_atrasados(LocalDate.now());
-                System.out.println(lista_autor.size());
+                //System.out.println(lista_autor.size());
                 if (!lista_autor.isEmpty()) {
                     for(Livro livro: lista_autor){
                         this.Livros.add(livro);
@@ -98,7 +98,7 @@ public class Relatorio {
 
 
                 List<Livro> lista_autor = DAO.getLivroDAO().TopLivros();
-                System.out.println(lista_autor.size());
+                //System.out.println(lista_autor.size());
                 if (!lista_autor.isEmpty()) {
                     for(Livro livro: lista_autor){
                         this.Livros.add(livro);

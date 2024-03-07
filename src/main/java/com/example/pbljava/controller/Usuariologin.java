@@ -27,7 +27,7 @@ public class Usuariologin {
     @FXML
     private Label labelerror1;
     @FXML
-    private TextField senharentrar;
+    private PasswordField senharentrar;
 
     @FXML
     void botaoentrarAction(ActionEvent event) throws Exception {
@@ -46,20 +46,24 @@ public class Usuariologin {
 
 
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/pbljava/UsuarioTela.fxml"));
-                System.out.println("hi");
+                //System.out.println("hi");
 
                 parent = fxmlLoader.load();
 
-                System.out.println("hi");
+                //System.out.println("hi");
                 Scene scene = new Scene(parent);
 
-                System.out.println("sou");
+                //System.out.println("sou");
                 Stage stage = (Stage) botaoentrar.getScene().getWindow();
-                stage.setTitle("Cena 1");
-                System.out.println("sou");
+                stage.setWidth(1200);
+                stage.setHeight(800);
+                stage.centerOnScreen();
+                stage.setTitle("Aréa do Usuário");
+                //System.out.println("sou");
                 stage.setScene(scene);
+                stage.sizeToScene();
                 stage.show();
-                System.out.println("sou");
+                //System.out.println("sou");
 
 
             }
