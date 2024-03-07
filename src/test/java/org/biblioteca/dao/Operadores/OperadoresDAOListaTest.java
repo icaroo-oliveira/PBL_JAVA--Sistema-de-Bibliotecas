@@ -84,6 +84,11 @@ class OperadoresDAOListaTest {
         junior.setTelefone("75-999889976");
         Operadores atual = DAO.getOperadoresDAO().update(junior);
         assertEquals(junior,atual);
+
+        /*//novo
+        samanta.setSenha_de_acesso("ok");
+        DAO.getOperadoresDAO().update(samanta);
+        //novo*/
     }
 
     /**

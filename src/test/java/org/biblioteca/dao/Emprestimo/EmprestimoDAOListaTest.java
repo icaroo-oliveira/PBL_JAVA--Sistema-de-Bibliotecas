@@ -66,6 +66,17 @@ class EmprestimoDAOListaTest {
         emp2 = DAO.getEmprestimoDAO().create(new Emprestimo(samanta,demian, LocalDate.of(2023,10,2),LocalDate.of(2023,10,9)));
         emp3 = DAO.getEmprestimoDAO().create(new Emprestimo(joao,sidarta, LocalDate.of(2023,10,3),LocalDate.of(2023,10,10)));
 
+        //novo
+        /*try {
+            emp1.Realizar_empresitmo(LocalDate.now());
+            emp2.Realizar_empresitmo(LocalDate.now());
+            emp3.Realizar_empresitmo(LocalDate.now());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+*/
+        //novo
+
 
     }
 
