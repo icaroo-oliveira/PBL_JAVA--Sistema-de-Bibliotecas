@@ -99,13 +99,13 @@ public class EditandoEmp {
 
                 Parent root= fxmlLoader.load();
 
-                System.out.println("aiai");
+                //System.out.println("aiai");
                 ControladorDados.getInstancia().getOperadorr().getP().setCenter(root);
 
-                System.out.println("aiai");
+                //System.out.println("aiai");
 
             }catch (Exception e){
-                System.out.println("algo errado");
+                //System.out.println("algo errado");
 
             }
 

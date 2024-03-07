@@ -19,10 +19,10 @@ public class confirmarE {
     @FXML
     void confirmaemprestimoAction(ActionEvent event) throws Exception {
 
-        System.out.println(DAO.getEmprestimoDAO().findMany().size());
+        //System.out.println(DAO.getEmprestimoDAO().findMany().size());
 
         ControladorDados controla = ControladorDados.getInstancia();
-        System.out.println(controla.getUsuario());
+        //System.out.println(controla.getUsuario());
         Emprestimo emprestimo= new Emprestimo(controla.getUsuario(),controla.getLivro());
 
     }

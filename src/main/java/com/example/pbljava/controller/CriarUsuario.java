@@ -73,7 +73,7 @@ public class CriarUsuario {
 
         tabelageral.setOnMouseClicked((MouseEvent event) -> {
             if(this.tabelageral.getSelectionModel().getSelectedIndex()!=-1 && event.getButton().equals(MouseButton.SECONDARY)){
-                System.out.println(tabelageral.getSelectionModel().getSelectedItem().getStatus());
+                //System.out.println(tabelageral.getSelectionModel().getSelectedItem().getStatus());
                 this.tabelageral.setContextMenu(contextMenu);
                 menuItem1.setOnAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -119,6 +119,7 @@ public class CriarUsuario {
 
     @FXML
     void BotaoAdicionarAction(ActionEvent event) {
+
         Usuario usuario = DAO.getUsuarioDAO().create(new Usuario(NomeText.getText(),EnderecoText.getText(),TelefoneText.getText(),0));
         this.usuariodados.add(usuario);
     }
@@ -164,6 +165,7 @@ public class CriarUsuario {
     @FXML
     void buscarAction(ActionEvent event) {
         try {
+
 
             this.usuariodados.clear();
             Usuario usuario = DAO.getUsuarioDAO().findById(Integer.parseInt((TextUsuario.getText())));
