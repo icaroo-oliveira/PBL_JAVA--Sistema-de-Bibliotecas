@@ -63,8 +63,14 @@ public class pagina_emp2Controller {
 
         TableColumn<Usuario, String> idCol = new TableColumn<>("ID");
         idCol.setCellValueFactory(new PropertyValueFactory<Usuario,String>("id"));
+        //novo
+        TableColumn<Usuario, Boolean> Statuscol = new TableColumn<>("Status Emprestimo");
+        Statuscol.setCellValueFactory(new PropertyValueFactory<Usuario,Boolean>("status"));
+        //novo
 
-        this.tabelageral.getColumns().addAll(nomeCol,idCol);
+
+
+        this.tabelageral.getColumns().addAll(nomeCol,idCol,Statuscol);
         this.tabelageral.setItems(Usuario);
 
         //choiceBox.getItems().addAll("Nome", "ID");
@@ -115,7 +121,7 @@ public class pagina_emp2Controller {
 
 
             }catch (Exception e){
-                System.out.println("algo errado");
+                //System.out.println("algo errado");
 
             }
 

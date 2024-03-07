@@ -55,10 +55,31 @@ public class pagina_emp1Controller {
     void initialize() {
         this.Livros= FXCollections.observableArrayList();
 
-        TableColumn<Livro, String> nomeCol = new TableColumn<>("Nome");
+        /*TableColumn<Livro, String> nomeCol = new TableColumn<>("Nome");
         nomeCol.setCellValueFactory(new PropertyValueFactory<Livro,String>("titulo"));
 
         this.tabelageral.getColumns().add(nomeCol);
+        this.tabelageral.setItems(Livros);
+
+        choiceBox.getItems().addAll("Autor", "Título", "ISBN");*/
+
+
+        TableColumn<Livro, String> nomeCol = new TableColumn<>("Titulo");
+        nomeCol.setCellValueFactory(new PropertyValueFactory<Livro,String>("titulo"));
+
+
+        TableColumn<Livro, String> autorcol = new TableColumn<>("Autor");
+        autorcol.setCellValueFactory(new PropertyValueFactory<Livro,String>("autor"));
+
+
+        TableColumn<Livro, Boolean> dispocol = new TableColumn<>("Disponibilidade");
+        dispocol.setCellValueFactory(new PropertyValueFactory<Livro,Boolean>("disponibilidade"));
+
+        TableColumn<Livro, Integer> idcol = new TableColumn<>("ISBN");
+        idcol.setCellValueFactory(new PropertyValueFactory<Livro,Integer>("ISBN"));
+
+
+        this.tabelageral.getColumns().addAll(nomeCol,autorcol,dispocol,idcol);
         this.tabelageral.setItems(Livros);
 
         choiceBox.getItems().addAll("Autor", "Título", "ISBN");
@@ -72,7 +93,7 @@ public class pagina_emp1Controller {
 
             if(this.choiceBox.getValue().equals("Autor")){
                 List<Livro> lista_autor = DAO.getLivroDAO().pesquisarPorAutor(autortb.getText());
-                System.out.println(lista_autor.size());
+                //System.out.println(lista_autor.size());
                 if (!lista_autor.isEmpty()) {
                     for(Livro livro: lista_autor){
                         this.Livros.add(livro);
@@ -80,7 +101,7 @@ public class pagina_emp1Controller {
                 }
             }else if(this.choiceBox.getValue().equals("Título")){
                 List<Livro> lista_autor = DAO.getLivroDAO().pesquisarPorTitulo(autortb.getText());
-                System.out.println(lista_autor.size());
+                //System.out.println(lista_autor.size());
                 if (!lista_autor.isEmpty()) {
                     for(Livro livro: lista_autor){
                         this.Livros.add(livro);
@@ -88,7 +109,7 @@ public class pagina_emp1Controller {
                 }
             }else if (this.choiceBox.getValue().equals("ISBN")){
                 List<Livro> lista_autor = DAO.getLivroDAO().pesquisarPorISBN(Integer.parseInt(autortb.getText()));
-                System.out.println(lista_autor.size());
+                //System.out.println(lista_autor.size());
                 if (!lista_autor.isEmpty()) {
                     for(Livro livro: lista_autor){
                         this.Livros.add(livro);
@@ -107,19 +128,19 @@ public class pagina_emp1Controller {
     }
     @FXML
     void OkbutoonAction(ActionEvent event) {
-        System.out.println("ola a todos");
+        //System.out.println("ola a todos");
 
         int i = this.tabelageral.getSelectionModel().getSelectedIndex();
 
         if(i>=0){
-            System.out.println("okkk");
+            //System.out.println("okkk");
             Livro livro = this.tabelageral.getSelectionModel().getSelectedItem();
             Parent root = null;
             try{
 
                 //FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("pagina_emp2.fxml"));
 
-                System.out.println("melaek");
+                //System.out.println("melaek");
 
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/com/example/pbljava/pagina_emp2.fxml"));
                 root= fxmlLoader.load();
@@ -129,15 +150,15 @@ public class pagina_emp1Controller {
                 this.operadorr= ControladorDados.getInstancia().getOperadorr();
                 ControladorDados controla = ControladorDados.getInstancia();
 
-                System.out.println("melaek11");
+                //System.out.println("melaek11");
                 controla.setLivro(livro);
-                System.out.println("melaek111");
+                //System.out.println("melaek111");
                 controla.setOperadorr(this.operadorr);
 
                 this.operadorr.getP().setCenter(root);
-                System.out.println("melaek11111111");
+                //System.out.println("melaek11111111");
             }catch (Exception e){
-                System.out.println("algo errado");
+                //System.out.println("algo errado");
 
             }
 
